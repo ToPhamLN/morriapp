@@ -1,0 +1,174 @@
+.artist__album__details {
+    min-height: 100%;
+    width: 100%;
+    line-height: 1.5;
+}
+
+.information {
+    position: relative;
+    /* height: 40vh; */
+
+}
+
+.background {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.background img {
+    height: 100%;
+}
+
+.container__information {
+    width: 100%;
+    padding: 2rem;
+    background-color: transparent;
+
+}
+
+.photo {
+    width: clamp(10rem, 20%, 25%);
+    aspect-ratio: 1 / 1;
+    position: relative;
+}
+
+.photo img {
+    border-radius: 1rem;
+}
+
+.photo__wrapper {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+.category {
+    position: relative;
+    margin-right: auto;
+    color: #ffffff;
+    font-size: 1.4rem;
+}
+
+.listtrack__title {
+    position: relative;
+    display: block;
+    z-index: 99;
+    font-size: 3rem;
+    color: #fff;
+    word-wrap: break-word;
+}
+
+.more__information {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.info__user {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.img__user {
+    width: 3rem;
+    height: 3rem;
+    flex: 0 0 auto;
+
+    img {
+        border-radius: 50%;
+    }
+}
+
+.desc {
+    padding: 1rem;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--text);
+}
+
+.statistical {
+    font-weight: 600;
+
+    color: #eaecf8;
+
+    &>span {
+        position: relative;
+        padding: 0 1rem;
+
+        &:not(:last-child):before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 0.2rem;
+            background-color: #eaecf8;
+
+        }
+
+        &:first-child {
+            padding-left: 0;
+        }
+    }
+}
+
+.statistics {
+    display: inline-flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 1rem;
+    color: var(--text);
+}
+
+.statistics li {
+    position: relative;
+    display: flex;
+    gap: 0.5rem;
+    font-size: 1.4rem;
+
+    svg {
+        font-size: 2rem;
+    }
+}
+
+.statistics li:not(:last-child)::after {
+    content: '-';
+}
+
+.control {
+    padding: 1rem;
+    border-bottom: 0.1rem solid var(--stripe-color);
+    display: flex;
+    gap: 1rem;
+}
+
+.control button {
+    width: 5rem;
+    height: 5rem;
+    font-size: 2.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.4s ease;
+
+    &:hover {
+        background-color: var(--hover-btn);
+    }
+
+}
+
+.control button.more {
+    background-color: transparent;
+    color: var(--text-color);
+
+    &:hover {
+        background-color: var(--hover-btn);
+    }
+}

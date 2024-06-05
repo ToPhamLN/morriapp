@@ -1,0 +1,123 @@
+.login {
+    background-color: var(--bg-color);
+    min-height: 100vh;
+}
+
+.container {
+    margin: auto;
+    max-width: 50rem;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    border-radius: 0.5rem;
+    padding: 2rem 0;
+    background-color: var(--navbar);
+}
+
+.container h1 {
+    text-align: center;
+}
+
+.passport {
+    margin: 3rem auto;
+    width: 70%;
+
+    button {
+        margin-bottom: 2rem;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        border-radius: 10rem;
+        padding: 1rem 3rem;
+        gap: 3rem;
+        color: var(--text);
+        background-color: var(--input-box);
+        border: 0.1rem solid var(--stripe-color);
+        transition: all 0.4s ease 0.1s;
+
+        &:hover {
+            border: 1px solid var(--main-color);
+        }
+
+        svg {
+            width: 3rem;
+            height: 3rem;
+        }
+    }
+}
+
+.stripe {
+    margin: 3rem auto;
+    width: 70%;
+    height: 0.1rem;
+    background-color: var(--stripe-color);
+}
+
+.login__account {
+    margin: 3rem auto;
+    width: 70%;
+}
+
+.submit {
+    display: inline-block;
+    width: 70%;
+    border-radius: 10rem;
+    padding: 1rem 0;
+    transition: all 0.4s ease 0.1s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--hover-btn);
+    }
+}
+
+.submit__login {
+    display: inline-block;
+    width: 100%;
+    border-radius: 10rem;
+    padding: 1rem 0;
+    transition: all 0.4s ease 0.1s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--hover-btn);
+    }
+}
+
+.reminder {
+    color: var(--text);
+    display: inline-flex;
+    gap: 1rem;
+}
+
+.forget {
+    margin: 3rem auto;
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+
+@media only screen and (max-width: 601px) {
+    .login {
+        padding: 0;
+        min-height: unset;
+    }
+
+    .container {
+        width: 100%;
+        border: none;
+        box-shadow: none;
+        margin-bottom: 5rem;
+    }
+
+
+    .passport,
+    .login__account,
+    .stripe,
+    .submit {
+        width: 90%;
+    }
+
+    .passport button {
+        gap: 1rem;
+    }
+}

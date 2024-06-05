@@ -1,0 +1,103 @@
+.footer {
+    background-color: var(--navbar);
+    border-top: 0.1rem solid var(--stripe-color);
+    padding: 2rem;
+}
+
+.top {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 2rem;
+}
+
+
+.item span {
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
+    display: block;
+    font-weight: 500;
+    color: var(--text)
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    width: auto;
+    gap: 1rem;
+
+    span {
+        margin-top: 0;
+    }
+}
+
+.item .logo__text {
+    font-weight: bold;
+    color: var(--text-color);
+    font-size: 4rem;
+}
+
+.logo__image {
+    display: flex;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+
+    &>img {
+        height: auto;
+    }
+}
+
+.bio {
+    width: auto;
+    display: flex;
+    gap: 1rem;
+}
+
+.bio button {
+    width: 5rem;
+    aspect-ratio: 1 / 1;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.top,
+.bottom,
+.stripe {
+    width: 80%;
+    margin: 3rem auto 0;
+}
+
+.stripe {
+    height: 0.1rem;
+    background-color: var(--stripe-color);
+}
+
+.bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+
+    color: var(--text);
+
+    svg {
+        font-size: 2rem;
+    }
+}
+
+@media only screen and (max-width: 601px) {
+
+    .top,
+    .bottom,
+    .stripe {
+        width: 90%;
+        margin: 3rem auto 0;
+    }
+
+
+}

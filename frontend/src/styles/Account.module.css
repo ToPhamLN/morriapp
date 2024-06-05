@@ -1,0 +1,80 @@
+.account {
+    min-height: 100vh;
+    margin: 0 1rem;
+    margin-top: 5rem;
+    gap: 2rem;
+}
+
+.map {
+    margin: 0 auto 2rem;
+    background-color: var(--card);
+    width: 80%;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 0.1rem solid var(--stripe-color);
+
+    .head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .more {
+        margin: 0.5rem 0;
+        color: var(--text);
+        background-color: transparent;
+        transition: all 0.3s ease 0.1s;
+        font-size: 2rem;
+
+        &:hover {
+            color: var(--text-color);
+        }
+    }
+
+    .content {
+        width: 100%;
+        border-radius: 1rem;
+        padding: 1rem 10rem;
+
+        button {
+            display: block;
+            margin-left: auto;
+            border-radius: 0.5rem;
+
+        }
+    }
+}
+
+.toggle__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+        font-size: 1.4rem;
+    }
+}
+
+.toggle__name {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+
+    color: var(--text-color);
+
+    svg {
+        font-size: 2rem;
+    }
+}
+
+@media only screen and (max-width: 601px) {
+    .map {
+        width: 100%;
+
+        .content {
+            padding: 1rem;
+        }
+    }
+}

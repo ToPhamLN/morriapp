@@ -1,0 +1,117 @@
+.loading__icon {
+    width: 2rem;
+    height: 2rem;
+    margin: 0 auto;
+    border: 0.3rem dashed #fff;
+    border-radius: 100%;
+    animation: loadingD 1.5s 0.3s cubic-bezier(0.17, 0.37, 0.43, 0.67) infinite;
+}
+
+.disc {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #303b57;
+    border-radius: 1rem;
+    box-sizing: border-box;
+}
+
+
+
+.plate .black,
+.plate .white,
+.plate .center,
+.plate .border {
+    border-radius: 50%;
+}
+
+.plate {
+    width: 95%;
+    aspect-ratio: 1 / 1;
+    position: relative;
+
+    svg {
+        margin: auto;
+        font-size: 15rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        color: #0F172A;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.plate .black,
+.plate .white,
+.plate .border {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.plate .black {
+    width: 100%;
+    aspect-ratio: 1 /1;
+    background-color: #675D50;
+    transform: rotate(45deg);
+}
+
+
+
+.plate .white {
+    width: 50%;
+    height: 50%;
+    background-color: #F3DEBA;
+}
+
+.plate .center {
+    width: 20%;
+    height: 20%;
+    background-color: #675D50;
+}
+
+.plate .border {
+    width: 111px;
+    height: 111px;
+    border-top: 3px solid #F3DEBA;
+    border-bottom: 3px solid #F3DEBA;
+    border-left: 3px solid #675D50;
+    border-right: 3px solid #675D50;
+}
+
+.navigator {
+    display: flex;
+    gap: 1rem;
+
+    button {
+        font-size: 2rem;
+        display: flex;
+        justify-content: flex-end;
+        padding: 0;
+        border-radius: 50%;
+        font-size: 3rem;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        color: #fff;
+        transition: background-color 0.3s ease-in-out 0.1s;
+    }
+}
+
+@keyframes loadingD {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(180deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

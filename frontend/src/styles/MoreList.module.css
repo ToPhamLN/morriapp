@@ -1,0 +1,254 @@
+.more__option {
+    position: fixed;
+    width: 25rem;
+    background-color: var(--navbar);
+    box-shadow: var(--box-shadow);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    border: 0.1rem solid var(--stripe-color);
+    box-sizing: border-box;
+    z-index: 9999;
+    animation: fadeInAnimation 0.1s ease-in forwards;
+
+    .header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding-bottom: 1rem;
+        flex-flow: row nowrap;
+        border-bottom: 0.1rem solid var(--stripe-color);
+    }
+
+    .image__option {
+        width: 4rem;
+        height: 4rem;
+        flex: 0 0 auto;
+        gap: 1rem;
+    }
+
+    .image__option img {
+        border-radius: 0.5rem;
+    }
+
+    .track__info__option {
+        flex: 1;
+        display: flex;
+        flex-flow: column;
+        gap: 0.5rem;
+    }
+
+    .track__name__option {
+        font-size: 1.2rem;
+        font-weight: 600;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        color: var(--text);
+
+        &:hover {
+            color: var(--text-color);
+            text-decoration: underline;
+        }
+    }
+
+    .popularity {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .item__popularity {
+        color: var(--text);
+        flex: 1;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        svg {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    }
+
+    .icon {
+        font-size: 2rem;
+    }
+
+    .choose__option {
+        display: flex;
+        flex-flow: column;
+    }
+
+    .btn {
+        position: relative;
+        width: 100%;
+        background-color: var(--navbar);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.8rem 1rem;
+        color: var(--text);
+        border-radius: 0.5rem;
+
+        &:hover {
+            color: var(--text-color);
+            background-color: var(--hover-color);
+        }
+    }
+
+}
+
+.more__option.header {
+    transform: unset;
+}
+
+.add__playlist {
+    padding: 0.5rem;
+    position: absolute;
+    right: 100%;
+    top: -9rem;
+    width: 20rem;
+    height: 27rem;
+    background-color: var(--navbar);
+    border-radius: 0.3rem;
+    border: 0.1rem solid var(--stripe-color);
+    box-shadow: var(--box-shadow);
+    z-index: 1;
+    display: flex;
+    flex-flow: column;
+    gap: 0.5rem;
+
+    .searchlist {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        background-color: var(--input-box);
+        height: 40px;
+        border-radius: 10px;
+        border: 1px solid var(--stripe-color);
+
+        &:focus-within {
+            border: 1px solid var(--main-color);
+        }
+    }
+
+    .searchlist input {
+        width: 12rem;
+        height: 100%;
+        background-color: transparent;
+        outline: none;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        color: var(--text-color);
+    }
+
+
+    .searchlist .icon {
+        flex: 0 0 auto;
+        background-color: transparent;
+        color: var(--text-color);
+        font-size: 1.3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .searchlist .icon:hover {
+        transform: scale(1.2);
+    }
+}
+
+.my__list {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    gap: 0.5rem;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 0.3rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--main-color);
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--main-color) transparent;
+}
+
+.add__new {
+    border-radius: 0.3rem;
+    width: 100%;
+    padding: 1rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: transparent;
+    gap: 1rem;
+    white-space: nowrap;
+
+    &:hover {
+        background-color: var(--hover-color);
+        color: var(--text-color)
+    }
+
+    &>span {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-size: 1.4rem;
+    }
+}
+
+.artist__list {
+    position: absolute;
+    padding: 0.5rem;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20rem;
+    height: auto;
+    background-color: var(--navbar);
+    border-radius: 0.3rem;
+    border: 0.1rem solid var(--stripe-color);
+    box-shadow: var(--box-shadow);
+    z-index: 1;
+    display: flex;
+    flex-flow: column;
+    gap: 0.5rem;
+
+}
+
+.add__playlist,
+.artist__list {
+    display: none;
+
+}
+
+.choose__option .btn:hover .add__playlist {
+    display: flex;
+}
+
+.choose__option .btn:hover .artist__list {
+    display: flex;
+}
+
+@keyframes fadeInAnimation {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

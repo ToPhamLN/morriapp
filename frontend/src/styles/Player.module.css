@@ -1,0 +1,308 @@
+.player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 8rem;
+    width: 100%;
+    background-color: var(--navbar);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0rem 1rem;
+    border-top: 1px solid var(--stripe-color);
+    z-index: 9999;
+    box-sizing: border-box;
+    gap: 1rem;
+}
+
+.no__track {
+    bottom: -100px;
+}
+
+.track__img {
+    flex: 0 0 auto;
+    width: 6rem;
+    height: 6rem;
+    background-color: aliceblue;
+    border-radius: 1rem;
+
+    & img {
+        border-radius: 1rem;
+    }
+}
+
+.track__name {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 1.5rem;
+}
+
+.track__artist {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.track__like {
+    position: relative;
+    flex: 0 0 auto;
+    background-color: transparent;
+    color: var(--text-color);
+    font-size: 2.5rem;
+    display: flex;
+    place-items: center;
+    padding: 0 0;
+    transition: transform 0.3s ease-in-out 0.1s;
+
+    &:hover {
+        transform: translateY(-0.2rem);
+    }
+}
+
+.track__control {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+
+    button {
+        position: relative;
+        padding: 0;
+        background: transparent;
+        font-size: 2rem;
+        color: var(--text-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.3s ease-in-out;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    &>.play {
+        font-size: 4rem;
+    }
+
+
+}
+
+.track__control .left,
+.track__control .right {
+    flex: 1;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    gap: 1rem;
+
+    button {
+        position: relative;
+        padding: 0;
+        background: transparent;
+        font-size: 2rem;
+        color: var(--text-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.3s ease-in-out;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    .suffle.choose {
+        color: var(--main-color);
+    }
+
+    .loop {
+        color: var(--main-color);
+    }
+
+    .replay {
+        color: var(--main-color);
+    }
+
+    .replay::before {
+        content: "1";
+        font-size: 1rem;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .like,
+    .lyrics,
+    .queue {
+        display: none;
+    }
+}
+
+.track__control .left {
+    justify-content: flex-end;
+
+    &>button:first-child {
+        margin-right: auto;
+    }
+
+}
+
+.track__control .right button:nth-child(2) {
+    margin-right: auto;
+}
+
+
+
+.track__range {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    &>span {
+        flex: 0 0 auto;
+        color: var(--text-color);
+    }
+
+    &>input {
+        flex: 1;
+    }
+}
+
+.track__option {
+    gap: 1rem;
+    align-items: center;
+    padding-left: 1rem;
+
+    &>button {
+        position: relative;
+        background: transparent;
+        font-size: 2.5rem;
+        color: var(--text-color);
+        height: 100%;
+        padding: 0;
+        display: flex;
+        place-items: center;
+        flex: 0 0 auto;
+        transition: transform 0.3s ease-in-out;
+
+        &:hover {
+            transform: translateY(-0.2rem);
+        }
+
+        &.watch__mode {
+            margin-left: auto;
+        }
+
+    }
+
+    input.input__volume {
+        width: 7.5rem;
+    }
+}
+
+
+button.choose {
+    color: var(--main-color);
+}
+
+.track__process {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+
+}
+
+.track__info,
+.track__option {
+    flex: 1;
+    width: 50rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.track__info {
+    min-width: 30rem;
+    gap: 1rem;
+    padding-right: 1rem;
+}
+
+
+.track__like::before,
+.track__option button::before {
+    content: attr(hover-content);
+    position: absolute;
+    top: -4rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    white-space: nowrap;
+    font-size: 1.3rem;
+    color: var(--text-color);
+    background-color: var(--hover-color);
+    padding: 0.7rem;
+    border-radius: 0.3rem;
+    display: none;
+}
+
+.track__option button:last-child::before {
+    left: -8rem;
+    transform: none;
+}
+
+.track__like:hover::before,
+.track__option button:hover::before {
+    display: block;
+}
+
+
+
+@media only screen and (max-width: 850px) {
+    .track__option input.input__volume {
+        display: none;
+    }
+
+    .player {
+        padding: 1rem 1rem;
+    }
+
+    .track__info {
+        min-width: unset;
+        gap: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .footer {
+        padding: 1rem 1rem;
+    }
+
+    .track__info,
+    .track__option {
+        flex: 1;
+        max-width: 35rem;
+        height: 100%;
+        align-items: center;
+        display: none;
+    }
+
+    .track__control .left,
+    .track__control .right {
+
+        .like,
+        .lyrics,
+        .queue {
+            display: flex;
+        }
+    }
+
+}

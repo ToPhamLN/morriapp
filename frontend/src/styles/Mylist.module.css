@@ -1,0 +1,30 @@
+.mylist {
+    min-height: 100vh;
+    line-height: 1.5;
+    padding: 1rem 0;
+    background: var(--navbar);
+
+    h1 {
+        margin-bottom: 2rem;
+    }
+}
+
+.form {
+    margin: auto;
+    width: 70%;
+    text-align: center;
+
+    .title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 5rem;
+    }
+}
+
+.map {
+    padding: 0 1rem;
+
+    h1 {
+        margin-bottom: 1rem;
+    }
+}

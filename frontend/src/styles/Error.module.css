@@ -1,0 +1,48 @@
+.error__page {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    text-align: center;
+}
+
+.status {
+    position: relative;
+}
+
+.code {
+    font-size: 15rem;
+    font-weight: 600;
+    box-sizing: content-box;
+}
+
+.image {
+    position: absolute;
+    top: 50%;
+    transform: translate(-60%, -50%);
+    left: 50%;
+    height: 70%;
+}
+
+.title,
+.message {
+    color: var(--text);
+    margin-bottom: 2rem;
+}
+
+.title {
+    color: var(--text-color);
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.control button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+}

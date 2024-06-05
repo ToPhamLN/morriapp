@@ -1,0 +1,53 @@
+.bio {
+    min-height: 100%;
+    width: 100%;
+    line-height: 1.5;
+    padding: 1rem;
+    background: var(--navbar);
+    margin-bottom: 4rem;
+
+    h1 {
+        margin-bottom: 2rem;
+    }
+
+    button.submit {
+        display: inline-flex;
+        width: 30%;
+        border-radius: 10rem;
+        padding: 1rem 0;
+        font-size: 1.4rem;
+        transition: all 0.4s ease 0.1s;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        gap: 1rem;
+
+        svg {
+            font-size: 2rem;
+        }
+
+        &:hover {
+            background-color: var(--hover-btn);
+        }
+    }
+}
+
+.form {
+    margin: auto;
+    width: 70%;
+    text-align: center;
+
+    .title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 5rem;
+    }
+}
+
+@media only screen and (max-width:801px) {}
+
+@media only screen and (max-width:601px) {
+    .form {
+        width: 90%;
+    }
+}

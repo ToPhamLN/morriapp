@@ -1,0 +1,71 @@
+.fixed__container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(14, 14, 26, 0.747);
+    backdrop-filter: blur(2px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete__playlist__card {
+    position: relative;
+    width: 40rem;
+    padding: 1rem;
+    border: 0.1rem solid var(--stripe-color);
+    border-radius: 1rem;
+    /* background-color: var(--navbar); */
+    backdrop-filter: blur(2px);
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 1rem;
+    box-sizing: border-box;
+}
+
+.exit {
+    position: absolute;
+    top: 0;
+    left: calc(100% + 1rem);
+    background-color: var(--navbar);
+    font-size: 1.5rem;
+    font-weight: 800;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    border-radius: 50%;
+    transition: all 0.3s ease 0.1s;
+
+    &:hover {
+        background-color: var(--hover-btn);
+    }
+}
+
+.control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+}
+
+.control button {
+    padding: 1rem;
+    border-radius: 0.3rem;
+    transition: all 0.3s ease 0.1s;
+
+    &.delete {
+        background-color: var(--color-danger);
+    }
+
+    &:hover {
+        background-color: var(--hover-btn);
+    }
+
+}

@@ -1,0 +1,66 @@
+.track__info {
+    gap: 1rem;
+    padding-right: 1rem;
+}
+
+.track__img {
+    flex: 0 0 auto;
+    width: 7rem;
+    height: 100%;
+    background-color: aliceblue;
+    border-radius: 1rem;
+
+    & img {
+        border-radius: 1rem;
+    }
+}
+
+.track__name {
+    white-space: nowrap;
+}
+
+.track__artist {}
+
+.track__like {
+    position: relative;
+    flex: 0 0 auto;
+    background-color: transparent;
+    color: var(--text-color);
+    font-size: 2.5rem;
+    display: flex;
+    place-items: center;
+    padding: 0 0;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+        transform: translateY(-0.2rem);
+    }
+}
+
+.track__info,
+.track__option {
+    max-width: 40rem;
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.track__like::before {
+    content: attr(hover-content);
+    position: absolute;
+    top: -4rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    white-space: nowrap;
+    font-size: 1.3rem;
+    color: var(--text-color);
+    background-color: var(--hover-color);
+    padding: 0.7rem;
+    border-radius: 0.3rem;
+    display: none;
+}
+
+.track__like:hover::before {
+    display: block;
+}

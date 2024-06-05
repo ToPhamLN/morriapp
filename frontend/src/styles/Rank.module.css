@@ -1,0 +1,14 @@
+.rank {
+    min-height: 100vh;
+    padding: 1rem 0 0 0;
+}
+
+.map {
+    margin-bottom: 2rem;
+
+    h1 {
+        margin-bottom: 1rem;
+    }
+
+    padding: 0 1rem;
+}

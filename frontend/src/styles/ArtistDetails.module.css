@@ -1,0 +1,473 @@
+.artist__details {
+    min-height: 100vh;
+    position: relative;
+}
+
+.artist__details .background {
+    position: relative;
+    width: auto;
+    aspect-ratio: 4 / 1;
+
+    &>.image {
+        height: 100%;
+    }
+}
+
+.background .artist__info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2% 5%;
+    display: flex;
+    align-items: flex-end;
+    gap: 2rem;
+}
+
+.background .artist__name {
+    font-size: 8rem;
+    color: #eaecf8;
+}
+
+.statistical {
+    font-weight: 600;
+
+    color: #eaecf8;
+
+    &>span {
+        position: relative;
+        padding: 0 1rem;
+
+        &:not(:last-child):before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 0.2rem;
+            background-color: #eaecf8;
+
+        }
+
+        &:first-child {
+            padding-left: 0;
+        }
+    }
+}
+
+.background .artist__avatar {
+    height: 50%;
+    aspect-ratio: 1 / 1;
+
+    &>img {
+        border-radius: 0.5rem;
+    }
+}
+
+.artist__details .header {
+    padding: 1rem 10rem;
+    min-height: 6rem;
+    width: auto;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--menu);
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+.artist__details .map {
+    margin-top: 2rem;
+}
+
+.artist__details .header.fixed__parent {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.artist__details .header .menu {
+    display: flex;
+    gap: 5rem;
+
+    button {
+        padding: 0;
+        background-color: transparent;
+        color: var(--text);
+        transition: all 0.3s ease 0.1s;
+        font-size: 1.7rem;
+        font-weight: 600;
+
+        &:hover {
+            text-decoration: underline;
+            color: var(--text-color);
+        }
+
+    }
+}
+
+.artist__details .header .handler .btn {
+    border-radius: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    transition: all 0.3s ease 0.1s;
+
+    &:hover {
+        background-color: var(--hover-btn);
+    }
+}
+
+.artist__details .header .handler .edit {
+    width: 5rem;
+    height: 5rem;
+    font-size: 2.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.4s ease;
+    background-color: transparent;
+    color: var(--text-color);
+
+    &:hover {
+        background-color: var(--hover-btn);
+    }
+}
+
+.artist__details .popular__songs {
+    margin-top: 2rem;
+    padding: 0 1rem;
+
+    h1 {
+        margin-bottom: 1rem;
+    }
+
+    .play__playlist {
+        margin-bottom: 1rem;
+        font-size: 2rem;
+        width: 6rem;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .popular__songs__container {
+        overflow: auto;
+        height: 35rem;
+
+        &::-webkit-scrollbar {
+            width: 0;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: var(--main-color);
+        }
+
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+    }
+
+    .more__watch {
+        position: absolute;
+        color: var(--text);
+        background-color: transparent;
+        transition: all 0.3s ease 0.1s;
+
+        &:hover {
+            color: var(--text-color);
+        }
+    }
+
+
+}
+
+.pin {
+    margin: 0 1rem;
+    width: auto;
+
+    h1 {
+        margin-bottom: 1rem;
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(18rem, 20rem));
+        gap: 1rem;
+    }
+}
+
+.artist__bio {
+    margin: 0 1rem 3rem;
+    width: auto;
+
+    h1 {
+        margin-bottom: 1rem;
+    }
+
+    .container {
+        width: 60%;
+        min-width: 100vh;
+        height: 30rem;
+
+        img {
+            border-radius: 1rem;
+            border: 0.1rem solid var(--stripe-color);
+            cursor: pointer;
+        }
+    }
+
+}
+
+.fixed__container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(14, 14, 26, 0.747);
+    backdrop-filter: blur(2px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.bios__details,
+.update__artist {
+    height: 90vh;
+    position: relative;
+    width: 70vw;
+    padding: 1rem 0;
+    border: 0.1rem solid var(--stripe-color);
+    border-radius: 1rem;
+    background-color: var(--navbar);
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    box-shadow: var(--box-shadow);
+    gap: 1rem;
+    box-sizing: border-box;
+
+}
+
+.bios__details .container,
+.form {
+    width: 100%;
+    padding-top: 4rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+        width: 0.1rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--main-color);
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--main-color) transparent;
+}
+
+.form__container {
+    text-align: center;
+    padding: 0 5rem 1rem;
+}
+
+.submit {
+    display: inline-flex;
+    width: 100%;
+    border-radius: 10rem;
+    padding: 1rem 0;
+    font-size: 1.4rem;
+    transition: all 0.4s ease 0.1s;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    gap: 1rem;
+
+    svg {
+        font-size: 2rem;
+    }
+
+    &:hover {
+        background-color: var(--hover-btn);
+    }
+}
+
+.exit {
+    position: absolute;
+    top: 0;
+    left: calc(100% + 1rem);
+    background-color: var(--navbar);
+    font-size: 1.5rem;
+    font-weight: 800;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    border-radius: 50%;
+    transition: all 0.3s ease 0.1s;
+}
+
+
+.bios__details {
+    .container {
+        padding-top: unset;
+        height: 100%;
+    }
+
+    .slider {
+        position: relative;
+        padding: 1rem 0;
+        width: 100%;
+        height: auto;
+        margin-bottom: 2rem;
+    }
+
+    .item__slider {
+        position: relative;
+        width: 100%;
+        height: 30rem;
+        position: relative;
+        display: flex;
+        justify-content: center;
+
+        img {
+            display: inline-block;
+            height: 100%;
+            width: auto;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+    }
+
+    .item__slider::before,
+    .item__slider img::before {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #00000080;
+        cursor: pointer;
+    }
+
+    .btn__prev,
+    .btn__next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4rem;
+        height: 4rem;
+        background-color: #144c7a1a;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        user-select: none;
+        z-index: 1;
+
+        &:hover {
+            cursor: pointer;
+            background-color: #144c7a21;
+        }
+    }
+
+    .btn__next {
+        right: 1rem;
+    }
+
+    .btn__prev {
+        left: 1rem;
+    }
+
+    .other,
+    .content {
+        padding: 0 5rem;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: var(--text);
+        margin-bottom: 2rem;
+    }
+
+    .top,
+    .links {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .top {
+        justify-content: space-between;
+    }
+
+    .label {
+        padding: 0;
+        display: flex;
+        align-items: flex-end;
+        font-size: 1.4rem;
+        font-weight: 500;
+        cursor: pointer;
+        color: var(--text);
+        gap: 1rem;
+
+        svg {
+            font-size: 3rem;
+        }
+    }
+}
+
+
+
+
+@media only screen and (max-width:801px) {
+    .artist__details .header {
+        padding: 1rem;
+
+    }
+
+    .artist__details .header .menu {
+        gap: 3rem;
+    }
+
+    .background .artist__name {
+        font-size: 5rem;
+    }
+}
+
+@media only screen and (max-width:601px) {
+    .artist__details .header {
+        padding: 1rem;
+    }
+
+    .artist__details .header .menu {
+        gap: 1rem;
+
+        button {
+            font-size: 1.3rem;
+            font-weight: 600;
+
+        }
+    }
+
+    .background .artist__name {
+        font-size: 3rem;
+    }
+}
