@@ -121,7 +121,7 @@
     }
 }
 
-@media only screen and (max-width: 601px) {
+@media only screen and (max-width: 736px) {
 
     .topic .child .title h1 {
         font-size: 2rem;

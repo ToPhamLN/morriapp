@@ -364,7 +364,7 @@
     }
 }
 
-@media only screen and (max-width:601px) {
+@media only screen and (max-width:736px) {
     .parent .child .playlist__name {
         font-size: 1.5rem;
         font-weight: 600;

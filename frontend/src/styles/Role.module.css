@@ -118,7 +118,7 @@
 
 @media only screen and (max-width: 801px) {}
 
-@media only screen and (max-width: 601px) {
+@media only screen and (max-width: 736px) {
     .role {
         padding: 0;
         min-height: unset;

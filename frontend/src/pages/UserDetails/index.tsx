@@ -156,7 +156,7 @@ const UserDetails = () => {
       </div>
       <div className={`${style.header} `}>
         <div className={style.menu}>
-          {loadingPin && (
+          {!loadingPin && (
             <button
               onClick={() => scrollToSection(menuRef.pin)}
             >
@@ -170,13 +170,13 @@ const UserDetails = () => {
           >
             Nghe gần đây
           </button>
-          {loadingFollowing && (
+          {!loadingFollowing && (
             <button
               onClick={() =>
                 scrollToSection(menuRef.following)
               }
             >
-              Theo dõi
+              <span className={style.text}>Theo dõi</span>
             </button>
           )}
         </div>
@@ -187,7 +187,7 @@ const UserDetails = () => {
               onClick={() => setEdit(true)}
             >
               <MdCreate className={style.icon} />
-              Chỉnh sửa
+              <span className={style.text}>Chỉnh sửa</span>
             </button>
           )}
         </div>

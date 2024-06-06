@@ -246,7 +246,7 @@ const ArtistHome = () => {
               onClick={() => setEdit(true)}
             >
               <MdCreate className={style.icon} />
-              Chỉnh sửa
+              <span className={style.text}>Chỉnh sửa</span>
             </button>
           ) : (
             <button
@@ -254,7 +254,9 @@ const ArtistHome = () => {
               onClick={handleFollow}
             >
               <MdAdd className={style.icon} />
-              {isFollowing ? 'Bỏ theo dõi' : 'Theo dõi'}
+              <span className={style.text}>
+                {isFollowing ? 'Bỏ theo dõi' : 'Theo dõi'}
+              </span>
             </button>
           )}
         </div>

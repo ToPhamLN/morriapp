@@ -69,7 +69,7 @@
     }
 }
 
-@media only screen and (max-width: 601px) {
+@media only screen and (max-width: 736px) {
     .map {
         width: 100%;
 

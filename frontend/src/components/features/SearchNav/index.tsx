@@ -3,7 +3,6 @@ import style from '~/styles/Navbar.module.css'
 import { FaSearch } from 'react-icons/fa'
 import { MdOutlineClose } from 'react-icons/md'
 import {
-  Link,
   useSearchParams,
   useLocation,
   useNavigate

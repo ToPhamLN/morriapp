@@ -96,7 +96,7 @@
     font-size: 1.3rem;
 }
 
-@media only screen and (max-width: 601px) {
+@media only screen and (max-width: 736px) {
     .login {
         padding: 0;
         min-height: unset;
