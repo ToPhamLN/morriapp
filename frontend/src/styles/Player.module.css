@@ -46,6 +46,15 @@
     overflow: hidden;
     font-size: 1.3rem;
     font-weight: 500;
+
+}
+
+.track__artist a {
+    color: var(--text-color)
+}
+
+.track__artist a:not(:last-child)::after {
+    content: ', ';
 }
 
 .track__like {

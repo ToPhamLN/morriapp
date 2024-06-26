@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import {
   IoIosArrowDown,
   IoIosArrowUp
@@ -13,6 +13,7 @@ const Account = () => {
 
   const [moreSetting, setMoreSetting] =
     useState<boolean>(false)
+
   return (
     <div className={style.account}>
       <div className={style.map}>

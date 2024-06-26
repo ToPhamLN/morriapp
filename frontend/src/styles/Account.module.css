@@ -37,7 +37,9 @@
         padding: 1rem 10rem;
 
         button {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             margin-left: auto;
             border-radius: 0.5rem;
 

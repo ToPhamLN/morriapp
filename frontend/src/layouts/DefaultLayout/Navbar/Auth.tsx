@@ -102,7 +102,7 @@ const Auth = ({ notifications }: Props) => {
             <Link to={'/account'}>
               <button>
                 <MdManageAccounts />
-                Tải khoản
+                Tài khoản
               </button>
             </Link>
             {idRole?._id && (

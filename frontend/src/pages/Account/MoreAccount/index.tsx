@@ -15,6 +15,8 @@ import {
 } from '~/hooks'
 import { setNotify } from '~/reduxStore/globalSlice'
 import { updateProfile } from '~/reduxStore/profileSlice'
+import { LoadingIcon } from '~/components/pure'
+import { MdOutlineLibraryAddCheck } from 'react-icons/md'
 
 interface FormAccount {
   email?: string
@@ -114,7 +116,16 @@ const MoreAccount = () => {
             name='confirmPwd'
             type='password'
           />
-          <button> Cập nhập</button>
+          <button className={style.submit}>
+            {loading ? (
+              <LoadingIcon />
+            ) : (
+              <>
+                <MdOutlineLibraryAddCheck />
+                Cập nhập
+              </>
+            )}
+          </button>
         </form>
       </FormProvider>
     </div>
