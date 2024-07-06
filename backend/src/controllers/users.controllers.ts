@@ -36,20 +36,35 @@ export const getUsers = async (
   next: NextFunction
 ) => {
   try {
-    const { q } = req.query as {
-      q: string
+    const { q, page, limit } = req.query as {
+      q?: string
+      page?: string
+      limit?: string
     }
-    const query = {} as {
-      slug: {
-        $regex: RegExp
-      }
-    }
-    if (q)
+
+    const query: any = {}
+
+    if (q) {
       query.slug = {
         $regex: new RegExp(convertSlug(q), 'i')
       }
-    const user = await UserModel.find(query)
-    res.status(200).json(user)
+    }
+
+    let usersQuery = UserModel.find(query).sort({
+      createdAt: -1
+    })
+
+    if (page && limit) {
+      const pageNumber = parseInt(page, 10) || 1
+      const limitNumber = parseInt(limit, 10) || 20
+      const skip = (pageNumber - 1) * limitNumber
+
+      usersQuery = usersQuery.skip(skip).limit(limitNumber)
+    }
+
+    const users = await usersQuery.exec()
+
+    res.status(200).json(users)
   } catch (error) {
     next(error)
   }
@@ -144,6 +159,19 @@ export const updateUser = async (
         )
       }
     }
+    next(error)
+  }
+}
+
+export const count = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const count = await UserModel.countDocuments().exec()
+    res.status(200).json(count)
+  } catch (error) {
     next(error)
   }
 }

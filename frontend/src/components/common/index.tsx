@@ -9,6 +9,7 @@ import InputFile from './InputFile'
 import InputFileMultiple from './InputFileMultiple'
 import MoreListHeader from './MoreListHeader'
 import ColorPicker from './ColorPicker'
+import Pagination from './Pagination'
 
 export {
   Deletion,
@@ -21,5 +22,6 @@ export {
   InputFile,
   InputFileMultiple,
   MoreListHeader,
-  ColorPicker
+  ColorPicker,
+  Pagination
 }

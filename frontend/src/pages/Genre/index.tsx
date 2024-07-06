@@ -32,7 +32,7 @@ const Child = ({ genre }: { genre: string }) => {
   const apiListTracks = 'api/v1/listtracks/all'
 
   const { data: listTracks } = useSWR(
-    genre ? apiListTracks + genre : null,
+    genre ? apiListTracks + genre + 'genre' : null,
     () => {
       if (genre) {
         return fetcher(apiListTracks, {

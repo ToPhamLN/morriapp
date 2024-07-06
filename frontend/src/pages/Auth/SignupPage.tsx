@@ -6,12 +6,10 @@ import {
 } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import style from '~/styles/Login.module.css'
 import { InputBox } from '~/components/common'
 import { LoadingIcon } from '~/components/pure'
-
-import { Link } from 'react-router-dom'
 import { useAppDispatch, useAxiosPublic } from '~/hooks'
 import { setProfile } from '~/reduxStore/profileSlice'
 import { setNotify } from '~/reduxStore/globalSlice'

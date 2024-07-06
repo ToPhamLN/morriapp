@@ -4,6 +4,7 @@ interface IProfile {
   email?: string
   accessToken?: string
   role?: string
+  isAdmin?: boolean
   idRole?: {
     _id: string
     username: string

@@ -228,53 +228,66 @@ export const getListTracks = async (
   next: NextFunction
 ) => {
   try {
-    const { author, pin, q, genre, ramdom } = req.query as {
-      author?: string
-      pin?: string
-      q?: string
-      genre?: string
-      ramdom?: number
-    }
-    const query = {} as {
-      author?: string
-      pin?: boolean
-      slug: {
-        $regex: RegExp
+    const { author, pin, q, genre, ramdom, page, limit } =
+      req.query as {
+        author?: string
+        pin?: string
+        q?: string
+        genre?: string
+        ramdom?: number
+        page?: string
+        limit?: string
       }
-      genre?: {
-        $in: string[]
-      }
-    }
+
+    const query: any = {}
 
     if (author) {
       query.author = author
     }
+
     if (pin === 'true') {
       query.pin = true
     } else if (pin === 'false') {
       query.pin = false
     }
-    if (q)
+
+    if (q) {
       query.slug = {
         $regex: new RegExp(convertSlug(q), 'i')
       }
-    if (genre)
+    }
+
+    if (genre) {
       query.genre = {
         $in: [genre]
       }
+    }
 
-    let listTracks = await ListTrackModel.find(query)
+    let listTracksQuery = ListTrackModel.find(query)
       .populate({
         path: 'author',
         select: 'username _id avatar slug role'
       })
       .lean()
 
+    if (page && limit) {
+      const pageNumber = parseInt(page, 10) || 1
+      const limitNumber = parseInt(limit, 10) || 20
+      const skip = (pageNumber - 1) * limitNumber
+
+      listTracksQuery = listTracksQuery
+        .skip(skip)
+        .limit(limitNumber)
+    }
+
+    let listTracks = await listTracksQuery.exec()
+
     if (ramdom) {
       listTracks = listTracks
-        ?.sort(() => Math.random() - 0.5)
-        ?.slice(0, ramdom)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, ramdom)
     }
+
     res.status(200).json(listTracks)
   } catch (error) {
     next(error)
@@ -306,6 +319,19 @@ export const getAlbum = async (
     const likes = await getListTrackLike(idListTrack)
 
     res.status(200).json({ ...listTrack, likes })
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const count = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const count = await ListTrackModel.countDocuments().exec()
+    res.status(200).json(count)
   } catch (error) {
     next(error)
   }

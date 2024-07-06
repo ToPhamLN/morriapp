@@ -1,6 +1,7 @@
 export enum ERole {
   USER = 'User',
-  ARTIST = 'Artist'
+  ARTIST = 'Artist',
+  ADMIN = 'Admin'
 }
 
 export enum ECategory {

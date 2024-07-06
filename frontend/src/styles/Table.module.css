@@ -1,0 +1,178 @@
+.table {
+    background-color: #f8f8f8;
+    width: 100%;
+    padding: 1.8rem;
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    border-radius: 1.5rem;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    flex-grow: 1;
+    flex-basis: 500px;
+    color: var(--text-color);
+}
+
+.table a {
+    color: var(--text);
+}
+
+.table table {
+    width: 100%;
+}
+
+.header .icon {
+    font-size: 2.4rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.header input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 1.3rem;
+    border-bottom: 0.1rem solid var(--text);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    grid-gap: 1.6rem;
+    padding: 1rem;
+    padding-bottom: 2rem;
+    position: sticky;
+    top: 0;
+    background-color: #f8f8f8;
+}
+
+.header h3 {
+    margin-right: auto;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.header .bx {
+    cursor: pointer;
+}
+
+.table:hover {
+    box-shadow: none;
+    border-collapse: collapse;
+}
+
+
+.table tbody td,
+.table thead th {
+    height: 4rem;
+    border-bottom: 1px solid var(--stripe-color);
+    color: var(--text)
+}
+
+.table thead {
+    position: sticky;
+    top: 5.5rem;
+    background: #f8f8f8;
+}
+
+.table thead th {
+    color: var(--text-color);
+}
+
+.table tbody tr:last-child td {
+    border: none;
+}
+
+.table th.asc::after {
+    content: ' \2191';
+}
+
+.table th.desc::after {
+    content: ' \2193';
+}
+
+.table th:first-child,
+.table td:first-child {
+    width: 3rem;
+}
+
+.table th:last-child,
+.table td:last-child {
+    width: 7rem;
+}
+
+.option__ctn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    &>.option {
+        font-size: 2rem;
+        cursor: pointer;
+
+        &:hover {
+            transform: translateY(1px);
+        }
+    }
+
+    &>.option:first-child {
+        color: var(--main-color);
+    }
+
+    &>.option:last-child {
+        color: var(--color-danger);
+    }
+}
+
+.table .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.pagination .icon,
+.pagination .page {
+    height: 3rem;
+    min-width: 3rem;
+    font-size: 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    background-color: var(--card);
+    color: var(--text);
+    transition: all 0.4s ease 0.1s;
+    border: 0.1rem solid var(--text);
+
+    &:hover {
+        transform: translateY(2px);
+    }
+
+    &.active {
+        background-color: var(--bg-btn);
+        color: #fff;
+    }
+}
+
+.pagination .page {
+    width: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+}

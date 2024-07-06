@@ -28,14 +28,14 @@ const PlayerInfo = ({
           {track?.title}
         </h1>
         <div className={style.track__artist}>
-          {track.author && (
+          {track?.author && (
             <Link
               to={`/artist/${track.author?.slug}${track?.author?._id}.html`}
             >
               {track?.author?.username}
             </Link>
           )}
-          {track.artist?.map((artist) => (
+          {track?.artist?.map((artist) => (
             <Link
               key={artist._id}
               to={`/artist/${artist?.slug}${artist?._id}.html`}

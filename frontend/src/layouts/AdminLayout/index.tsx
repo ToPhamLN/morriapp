@@ -6,10 +6,16 @@ import Footer from '~/layouts/DefaultLayout/Footer'
 import Notification from '~/layouts/DefaultLayout/Notification'
 import Sidebar from './Sidebar'
 import { Navigator } from '~/components/features'
+import Viewbar from '../DefaultLayout/Viewbar'
+import Player from '../DefaultLayout/Player'
 
-const ArtistLayout: React.FC = () => {
+const AdminLayout: React.FC = () => {
   const { theme } = useAppSelector(
     (state) => state.settings
+  )
+  const { view } = useAppSelector((state) => state.global)
+  const { track } = useAppSelector(
+    (state) => state.trackPlay
   )
   const location = useLocation()
 
@@ -25,7 +31,11 @@ const ArtistLayout: React.FC = () => {
       className={`app ${theme ? 'dark__theme' : 'light__theme'}`}
     >
       <Navbar />
-      <div className='container'>
+      <div
+        className={
+          track ? 'container hastrack' : 'container'
+        }
+      >
         <Sidebar />
         <div className='main'>
           <div className='navigator'>
@@ -34,10 +44,12 @@ const ArtistLayout: React.FC = () => {
           <Outlet />
           <Footer />
         </div>
+        {view.isView && <Viewbar />}
       </div>
+      <Player />
       <Notification />
     </div>
   )
 }
 
-export default ArtistLayout
+export default AdminLayout

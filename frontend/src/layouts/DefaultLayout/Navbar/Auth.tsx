@@ -33,7 +33,7 @@ const Auth = ({ notifications }: Props) => {
 
   const notifyRef = useRef<HTMLDivElement | null>(null)
   const moreRef = useRef<HTMLDivElement | null>(null)
-  const { idRole } = useAppSelector(
+  const { role, idRole } = useAppSelector(
     (state) => state.profile
   )
   const { theme } = useAppSelector(
@@ -105,7 +105,7 @@ const Auth = ({ notifications }: Props) => {
                 Tài khoản
               </button>
             </Link>
-            {idRole?._id && (
+            {role == 'User' && (
               <Link
                 to={`/user/${idRole?.slug}${idRole?._id}.html`}
               >

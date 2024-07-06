@@ -1,0 +1,65 @@
+.container {
+    margin: 1rem 0;
+}
+
+.total {
+    margin: 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+}
+
+.total .item {
+    padding: 1rem;
+    aspect-ratio: 5 / 2;
+    border-radius: 1rem;
+    border: 0.1rem solid var(--stripe-color);
+    box-shadow: var(--box-shadow);
+    background-color: var(--card);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    &:hover {
+        box-shadow: unset;
+    }
+}
+
+.total .item .icon {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+}
+
+.total .item:first-child .icon {
+    background-color: #CFE8FF;
+    color: #1976D2;
+}
+
+.total .item:nth-child(2) .icon {
+    background-color: #FFF2C6;
+    color: #FBC650;
+}
+
+.total .item:nth-child(3) .icon {
+    background-color: #BBF7D0;
+    color: #388E3C;
+}
+
+.total .item:last-child .icon {
+    background-color: #FECDD3;
+    color: #D53636;
+}
+
+.total .item .name {
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.map {
+    margin-top: 2rem;
+}

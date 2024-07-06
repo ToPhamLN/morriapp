@@ -5,7 +5,8 @@ import {
   updateTrack,
   getTracks,
   listensTrack,
-  getRank
+  getRank,
+  countTracks
 } from '~/controllers/tracks.controllers'
 import { verifyToken } from '~/middlewares/auth.middlewares'
 import uploadCloud from '~/middlewares/uploader'
@@ -32,6 +33,7 @@ route.put(
   updateTrack
 )
 route.get('/all', getTracks)
+route.get('/count', countTracks)
 route.get('/rank', getRank)
 route.get('/:idTrack', getTrack)
 route.post('/:idTrack/listen', listensTrack)

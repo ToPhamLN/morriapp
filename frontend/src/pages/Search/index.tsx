@@ -95,10 +95,6 @@ const Search = () => {
     mutate(apiUsers + 'search')
     mutate(apiArtists + 'search')
   }, [q])
-  // console.log(listTracks?.map((item) => item.title))
-  // console.log(tracks?.map((item) => item.title))
-  // console.log(users?.map((item) => item.username))
-  // console.log(artists?.map((item) => item.username))
 
   return (
     <div className={style.search}>

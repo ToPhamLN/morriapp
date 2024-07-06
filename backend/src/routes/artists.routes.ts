@@ -1,5 +1,6 @@
 import express from 'express'
 import {
+  countArtist,
   getArtist,
   getArtists,
   updateArtist
@@ -10,6 +11,7 @@ import uploadCloud from '~/middlewares/uploader'
 const route: express.Router = express.Router()
 
 route.get('/all', getArtists)
+route.get('/count', countArtist)
 route.get('/:idArtist', getArtist)
 route.put(
   '/update',

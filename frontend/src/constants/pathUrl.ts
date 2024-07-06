@@ -23,6 +23,12 @@ import Lyrics from '~/pages/Lyrics'
 import TrackDetails from '~/pages/TrackDetails'
 import GenreDetails from '~/pages/GenreDetails'
 import RankDetails from '~/pages/RankDetails'
+import AdminHome from '~/pages/AdminHome'
+import AdminTrack from '~/pages/AdminTrack'
+import AdminListTrack from '~/pages/AdminListTrack'
+import AdminUser from '~/pages/AdminUser'
+import AdminArtist from '~/pages/AdminArtist'
+import AdminReport from '~/pages/AdminReport'
 
 export const routes = {
   home: '/',
@@ -55,7 +61,12 @@ export const routes = {
   artistTrack: '/mytrack',
   lyrics: '/lyrics',
   trackDetails: '/track/:trackParam',
-  rankDetails: '/rank/:rankParam'
+  rankDetails: '/rank/:rankParam',
+  users: '/user',
+  artists: '/artist',
+  tracks: '/track',
+  listTracks: '/list',
+  reports: '/report'
 } as const
 
 export const authRoutes: {
@@ -161,4 +172,28 @@ export const artistRoutes: {
     component: ArtistTrackUpdate
   },
   { path: routes.artistTrack, component: ArtistTrack }
+]
+
+export const adminRoutes: {
+  path: string
+  component: React.ComponentType
+}[] = [
+  { path: routes.home, component: AdminHome },
+  { path: routes.tracks, component: AdminTrack },
+  {
+    path: routes.listTracks,
+    component: AdminListTrack
+  },
+  {
+    path: routes.users,
+    component: AdminUser
+  },
+  {
+    path: routes.artists,
+    component: AdminArtist
+  },
+  {
+    path: routes.reports,
+    component: AdminReport
+  }
 ]

@@ -95,9 +95,9 @@
     button {
         border-radius: 1rem;
         background-color: var(--card);
-        color: var(--text-color);
+        color: var(--text);
         transition: all 0.4s ease 0.1s;
-        border: 0.1rem solid var(--text-color);
+        border: 0.1rem solid var(--text);
 
         &:hover {
             background-color: var(--hover-btn);

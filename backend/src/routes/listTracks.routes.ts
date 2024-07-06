@@ -1,6 +1,7 @@
 import express from 'express'
 import {
   addTrack,
+  count,
   createListTrack,
   getAlbum,
   getListTracks,
@@ -28,6 +29,7 @@ route.put('/pin/:idListTrack', verifyToken, pinlistTrack)
 route.put('/addtrack/:idListTrack', verifyToken, addTrack)
 
 route.get('/all', getListTracks)
+route.get('/count', count)
 route.get('/:idListTrack', getAlbum)
 
 export default route

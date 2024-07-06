@@ -3,22 +3,24 @@ import {
   publicRoutes,
   privateRoutes,
   authRoutes,
-  artistRoutes
+  artistRoutes,
+  adminRoutes
 } from '~/constants/pathUrl'
 import DefaultLayout from '~/layouts/DefaultLayout'
 import NotFound from './pages/Error/NotFound'
 import ArtistLayout from './layouts/ArtistLayout'
 import { useAppSelector } from './hooks'
 import { ERole } from './constants/enum'
+import AdminLayout from './layouts/AdminLayout'
 
 const App: React.FC = () => {
-  const userInfo = useAppSelector(
-    (state) => state.profile.role
+  const { role, isAdmin } = useAppSelector(
+    (state) => state.profile
   )
 
   return (
     <Routes>
-      {userInfo === ERole.ARTIST && (
+      {role === ERole.ARTIST && (
         <Route path='/' element={<ArtistLayout />}>
           {artistRoutes.map((route) => {
             const Page = route.component
@@ -43,6 +45,32 @@ const App: React.FC = () => {
           <Route path='*' element={<NotFound />} />
         </Route>
       )}
+      {isAdmin && (
+        <Route path='/' element={<AdminLayout />}>
+          {adminRoutes.map((route) => {
+            const Page = route.component
+            return (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={<Page />}
+              ></Route>
+            )
+          })}
+          {publicRoutes.map((route) => {
+            const Page = route.component
+            return (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={<Page />}
+              ></Route>
+            )
+          })}
+          <Route path='*' element={<NotFound />} />
+        </Route>
+      )}
+
       <Route path='/' element={<DefaultLayout />}>
         {authRoutes.map((route) => {
           const Page = route.component
@@ -70,7 +98,7 @@ const App: React.FC = () => {
             <Route
               key={route.path}
               path={route.path}
-              element={userInfo ? <Page /> : <Page />}
+              element={role ? <Page /> : <Page />}
             ></Route>
           )
         })}

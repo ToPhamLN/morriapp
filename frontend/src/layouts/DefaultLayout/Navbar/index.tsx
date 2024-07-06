@@ -17,7 +17,7 @@ import { DNotifiction } from '~/types/data'
 const Navbar: React.FC = () => {
   const dispatch = useAppDispatch()
   const handleMount = () => dispatch(setIsSidebar())
-  const { idRole, role } = useAppSelector(
+  const { idRole, role, isAdmin } = useAppSelector(
     (state) => state.profile
   )
   const { pathname } = useLocation()
@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
         </Link>
       </div>
       <div className={style.nav__center}>
-        <SearchNav />
+        {!isAdmin && <SearchNav />}
       </div>
       {idRole ? (
         <Auth notifications={notifications} />

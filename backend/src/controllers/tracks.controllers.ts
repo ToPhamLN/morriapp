@@ -278,22 +278,39 @@ export const getTracks = async (
   next: NextFunction
 ) => {
   try {
-    const { author, q } = req.query as {
-      author: string
-      q: string
+    const { author, q, page, limit } = req.query as {
+      author?: string
+      q?: string
+      page?: string
+      limit?: string
     }
 
-    const query = {} as {
-      author?: string
-      slug: {
-        $regex: RegExp
-      }
-    }
+    const query: any = {}
     if (author) query.author = author
-    if (q)
+    if (q) {
       query.slug = {
         $regex: new RegExp(convertSlug(q), 'i')
       }
+    }
+
+    if (!page && !limit) {
+      const tracks = await TrackModel.find(query)
+        .populate({
+          path: 'album',
+          select: '_id title slug'
+        })
+        .populate({
+          path: 'artist author',
+          select: '_id username slug avatar'
+        })
+        .exec()
+
+      return res.status(200).json(tracks)
+    }
+
+    const pageNumber = page ? parseInt(page, 10) : 1
+    const limitNumber = limit ? parseInt(limit, 10) : 20
+    const skip = (pageNumber - 1) * limitNumber
 
     const tracks = await TrackModel.find(query)
       .populate({
@@ -304,6 +321,8 @@ export const getTracks = async (
         path: 'artist author',
         select: '_id username slug avatar'
       })
+      .skip(skip)
+      .limit(limitNumber)
       .exec()
 
     res.status(200).json(tracks)
@@ -410,6 +429,19 @@ export const getRank = async (
       tracks = tracks.sort((a, b) => b.listens - a.listens)
     }
     res.status(200).json(tracks)
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const countTracks = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const trackCount = await TrackModel.countDocuments().exec()
+    res.status(200).json(trackCount)
   } catch (error) {
     next(error)
   }
