@@ -8,11 +8,12 @@ import {
   MdAudiotrack,
   MdDelete,
   MdFormatListBulletedAdd,
+  MdMessage,
   MdOutlineAdd,
   MdOutlinePlaylistAdd,
   MdPeopleAlt
 } from 'react-icons/md'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import style from '~/styles/MoreList.module.css'
 import MoreListCreatePlayList from './MoreListCreatePlayList'
 import { FaShare } from 'react-icons/fa'
@@ -34,6 +35,7 @@ import { addWaitingList } from '~/reduxStore/trackPlaySlice'
 import useSWR, { mutate } from 'swr'
 import { IoMdDownload } from 'react-icons/io'
 import { downloadMusic } from '~/utils/helpers'
+import Deletion from '../Deletion'
 
 type DListTrackWithoutList = Omit<DListTrack, 'list'>
 
@@ -54,7 +56,7 @@ const MoreList = ({
   likedTrack,
   listInfo
 }: Props) => {
-  const { role, idRole } = useAppSelector(
+  const { role, idRole, isAdmin } = useAppSelector(
     (state) => state.profile
   )
   const [popUp, setPopUp] = useState<{
@@ -64,16 +66,19 @@ const MoreList = ({
     top: 0,
     left: 0
   })
+  const [isDelete, setIsDelete] = useState<boolean>(false)
   const dispatch = useDispatch()
   const axios = useAxiosPrivate()
   const fetcher = useFetcher()
+  const navigate = useNavigate()
+
   const { data: likes } = useSWR(
     `api/v1/interactions/count/wish/track/${track?._id}`,
     fetcher
   ) as { data: number }
 
   const handleDeleteTrack = () => {
-    console.log('delete track')
+    setIsDelete(true)
   }
   const handleRemoveTrack = async () => {
     try {
@@ -99,12 +104,19 @@ const MoreList = ({
     } as unknown as DImage
     downloadMusic(fileMp3)
   }
+  const handleReport = () => {
+    const link = {
+      path: `/track/${track?.slug}${track?._id}.html`,
+      photo: track?.photo?.path,
+      title: track?.title
+    }
+    navigate('/report/create', { state: link })
+  }
 
   useEffect(() => {
     const { width, height } =
       refItem.current?.getBoundingClientRect() as DOMRect
     let newTop = location.top
-    console.log(height, location.top, innerHeight)
     if (newTop + height + 100 > innerHeight)
       newTop = innerHeight - height - 100
     let newLeft = location.left
@@ -153,27 +165,29 @@ const MoreList = ({
       <div className={style.choose__option}>
         {role === ERole.ARTIST &&
           track?.author?._id == idRole?._id && (
-            <>
-              <Link
-                to={`/track/${track?.slug}${track?._id}.html/edit`}
-              >
-                <button className={style.btn}>
-                  <RiPencilFill className={style.icon} />
-                  Sửa đổi bài hát này
-                </button>
-              </Link>
-              <button
-                className={style.btn}
-                onClick={handleDeleteTrack}
-              >
-                <MdDelete className={style.icon} />
-                Xóa khỏi danh sách này
+            <Link
+              to={`/track/${track?.slug}${track?._id}.html/edit`}
+            >
+              <button className={style.btn}>
+                <RiPencilFill className={style.icon} />
+                Sửa đổi bài hát này
               </button>
-            </>
+            </Link>
           )}
-        {role === ERole.USER &&
+        {(isAdmin ||
+          (role === ERole.ARTIST &&
+            track?.author?._id == idRole?._id)) && (
+          <button
+            className={style.btn}
+            onClick={handleDeleteTrack}
+          >
+            <MdDelete className={style.icon} />
+            Xóa bài hát
+          </button>
+        )}
+        {(role === ERole.USER || isAdmin) &&
           listInfo &&
-          listInfo?.author?._id == idRole?._id && (
+          listInfo?.author?._id === idRole?._id && (
             <button
               className={style.btn}
               onClick={handleRemoveTrack}
@@ -260,6 +274,13 @@ const MoreList = ({
         </Link>
         <button
           className={style.btn}
+          onClick={handleReport}
+        >
+          <MdMessage className={style.icon} />
+          Báo cáo
+        </button>
+        <button
+          className={style.btn}
           onClick={() =>
             navigator.clipboard.writeText(
               `${window.location.host}/track/${track?.slug}${track?._id}.html`
@@ -270,6 +291,13 @@ const MoreList = ({
           Chia sẻ
         </button>
       </div>
+      {isDelete && (
+        <Deletion
+          setExit={setIsDelete}
+          api={`api/v1/tracks/${track?._id}`}
+          reset={`api/v1/listtracks/${listInfo?._id}`}
+        />
+      )}
     </div>
   )
 }

@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom'
 import {
   MdMessage,
   MdMusicNote,
+  MdOutlineAdd,
+  MdOutlineBookmarkBorder,
   MdOutlineLibraryMusic
 } from 'react-icons/md'
 import { IoPeople } from 'react-icons/io5'
@@ -40,6 +42,14 @@ const Sidebar: React.FC = () => {
           <span className={style.link__name}>Album</span>
           <div className={style.hover__content}>Album</div>
         </Link>
+
+        <Link to={'/artist'} className={style.link}>
+          <IoPeople className={style.icon} />
+          <span className={style.link__name}>Nghệ sĩ</span>
+          <div className={style.hover__content}>
+            Nghệ sĩ
+          </div>
+        </Link>
         <Link to={'/user'} className={style.link}>
           <IoPeople className={style.icon} />
           <span className={style.link__name}>
@@ -49,18 +59,27 @@ const Sidebar: React.FC = () => {
             Người dùng
           </div>
         </Link>
-        <Link to={'/artist'} className={style.link}>
-          <IoPeople className={style.icon} />
-          <span className={style.link__name}>Nghệ sĩ</span>
-          <div className={style.hover__content}>
-            Nghệ sĩ
-          </div>
-        </Link>
         <Link to={'/report'} className={style.link}>
           <MdMessage className={style.icon} />
           <span className={style.link__name}>Phản hồi</span>
           <div className={style.hover__content}>
             Phản hồi
+          </div>
+        </Link>
+        <Link to={'/mylist'} className={style.link}>
+          <MdOutlineBookmarkBorder />
+          <span className={style.link__name}>Thư viện</span>
+          <div className={style.hover__content}>
+            Thư viện
+          </div>
+        </Link>
+        <Link to={'mylist/create'} className={style.link}>
+          <MdOutlineAdd className={style.icon} />
+          <span className={style.link__name}>
+            Thêm playlist mới
+          </span>
+          <div className={style.hover__content}>
+            Thêm playlist mới
           </div>
         </Link>
       </div>

@@ -336,3 +336,28 @@ export const count = async (
     next(error)
   }
 }
+
+export const deleteListTrack = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { idListTrack } = req.params
+    const existedListTrack =
+      await ListTrackModel.findById(idListTrack)
+    if (!existedListTrack) {
+      return res.status(404).json({
+        message: 'Bạn đã xóa danh sách này rồi!'
+      })
+    }
+    await ListTrackModel.findByIdAndDelete(idListTrack)
+    if (existedListTrack?.photo?.fileName)
+      await cloudinary.uploader.destroy(
+        existedListTrack?.photo?.fileName
+      )
+    res.status(200).json({ message: 'Xóa bài hát thành công!' })
+  } catch (error) {
+    next(error)
+  }
+}

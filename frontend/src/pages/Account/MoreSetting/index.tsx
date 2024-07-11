@@ -1,5 +1,7 @@
 import React from 'react'
 import { IoMdMoon } from 'react-icons/io'
+import { IoPeople } from 'react-icons/io5'
+import { MdLogout } from 'react-icons/md'
 import { Toggle } from '~/components/common'
 import { useAppDispatch, useAppSelector } from '~/hooks'
 import { setThemeMode } from '~/reduxStore/settingsSlice'
@@ -21,6 +23,24 @@ const MoreSetting = () => {
           Chế độ tối
         </div>
         <Toggle handleToggle={handleTheme} value={theme} />
+      </div>
+      <div className={style.toggle__item}>
+        <div className={style.toggle__name}>
+          <IoPeople />
+          Xóa tài khoản
+        </div>
+        <button className={`${style.btn} ${style.delete}`}>
+          <IoPeople />
+        </button>
+      </div>
+      <div className={style.toggle__item}>
+        <div className={style.toggle__name}>
+          <MdLogout />
+          Đăng xuất
+        </div>
+        <button className={`${style.btn} ${style.logout}`}>
+          <MdLogout />
+        </button>
       </div>
     </div>
   )

@@ -29,6 +29,8 @@ import AdminListTrack from '~/pages/AdminListTrack'
 import AdminUser from '~/pages/AdminUser'
 import AdminArtist from '~/pages/AdminArtist'
 import AdminReport from '~/pages/AdminReport'
+import ReportCreate from '~/pages/ReportCreate'
+import ReportDetail from '~/pages/ReportDetails'
 
 export const routes = {
   home: '/',
@@ -66,7 +68,9 @@ export const routes = {
   artists: '/artist',
   tracks: '/track',
   listTracks: '/list',
-  reports: '/report'
+  reports: '/report',
+  reportCreate: '/report/create',
+  reportDetails: '/report/:reportParam'
 } as const
 
 export const authRoutes: {
@@ -133,7 +137,8 @@ export const privateRoutes: {
   {
     path: routes.playlistUpdate,
     component: ArtistAlbumUpdate
-  }
+  },
+  { path: routes.reportCreate, component: ReportCreate }
 ]
 
 export const artistRoutes: {
@@ -171,7 +176,8 @@ export const artistRoutes: {
     path: routes.trackUpdate,
     component: ArtistTrackUpdate
   },
-  { path: routes.artistTrack, component: ArtistTrack }
+  { path: routes.artistTrack, component: ArtistTrack },
+  { path: routes.reportCreate, component: ReportCreate }
 ]
 
 export const adminRoutes: {
@@ -195,5 +201,9 @@ export const adminRoutes: {
   {
     path: routes.reports,
     component: AdminReport
+  },
+  {
+    path: routes.reportDetails,
+    component: ReportDetail
   }
 ]

@@ -57,6 +57,16 @@ const App: React.FC = () => {
               ></Route>
             )
           })}
+          {privateRoutes.map((route) => {
+            const Page = route.component
+            return (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={<Page />}
+              ></Route>
+            )
+          })}
           {publicRoutes.map((route) => {
             const Page = route.component
             return (

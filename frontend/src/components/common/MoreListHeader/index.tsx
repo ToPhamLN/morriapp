@@ -6,15 +6,17 @@ import {
 } from 'react-icons/io5'
 import {
   MdDelete,
+  MdMessage,
   MdOutlineAccountCircle
 } from 'react-icons/md'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import style from '~/styles/MoreList.module.css'
 import { FaPen, FaShare } from 'react-icons/fa'
 import { DListTrack } from '~/types/data'
 import { useAppSelector, useAxiosPrivate } from '~/hooks'
 import { ERole } from '~/constants/enum'
 import { mutate } from 'swr'
+import Deletion from '../Deletion'
 
 interface Props {
   refItem: React.RefObject<HTMLDivElement>
@@ -30,7 +32,8 @@ const MoreListHeader = ({
   likedListTrack,
   handleAddWishList
 }: Props) => {
-  const { idRole, role } = useAppSelector(
+  const [isDelete, setIsDelete] = useState<boolean>(false)
+  const { idRole, role, isAdmin } = useAppSelector(
     (state) => state?.profile
   )
   const [popUp, setPopUp] = useState<{
@@ -41,6 +44,7 @@ const MoreListHeader = ({
     left: 0
   })
   const axios = useAxiosPrivate()
+  const navigate = useNavigate()
 
   const handlePin = async () => {
     try {
@@ -51,6 +55,15 @@ const MoreListHeader = ({
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const handleReport = () => {
+    const link = {
+      path: `/${listTrack?.category?.toLowerCase()}/${listTrack?.slug}${listTrack?._id}.html`,
+      photo: listTrack?.photo?.path,
+      title: listTrack?.title
+    }
+    navigate('/report/create', { state: link })
   }
 
   useEffect(() => {
@@ -76,102 +89,114 @@ const MoreListHeader = ({
         left: popUp.left
       }}
     >
-      <>
-        <div className={style.header}>
-          <div className={style.image__option}>
-            <img
-              src={
-                listTrack?.photo?.path ||
-                '/src/assets/disc.png'
-              }
-              alt={listTrack?.photo?.fileName}
-            />
-          </div>
-          <div className={style.track__info__option}>
-            <Link
-              to={''}
-              className={style.track__name__option}
-            >
-              {listTrack?.title}
-            </Link>
-            <div className={style.popularity}>
-              <div className={style.item__popularity}>
-                <IoHeartOutline />
-                <span>
-                  {listTrack?.likes?.length?.toString()}
-                </span>
-              </div>
-              <div className={style.item__popularity}>
-                <IoHeadset />
-                <span>
-                  {listTrack?.listens?.toString()}
-                </span>
-              </div>
+      <div className={style.header}>
+        <div className={style.image__option}>
+          <img
+            src={
+              listTrack?.photo?.path ||
+              '/src/assets/disc.png'
+            }
+            alt={listTrack?.photo?.fileName}
+          />
+        </div>
+        <div className={style.track__info__option}>
+          <Link
+            to={''}
+            className={style.track__name__option}
+          >
+            {listTrack?.title}
+          </Link>
+          <div className={style.popularity}>
+            <div className={style.item__popularity}>
+              <IoHeartOutline />
+              <span>
+                {listTrack?.likes?.length?.toString()}
+              </span>
+            </div>
+            <div className={style.item__popularity}>
+              <IoHeadset />
+              <span>{listTrack?.listens?.toString()}</span>
             </div>
           </div>
         </div>
-        <div className={style.choose__option}>
-          {idRole?._id == listTrack?.author?._id && (
-            <>
-              <Link to={'edit'}>
-                <button className={style.btn}>
-                  <FaPen className={style.icon} />
-                  Sửa đổi danh sách này
-                </button>
-              </Link>
+      </div>
+      <div className={style.choose__option}>
+        {idRole?._id == listTrack?.author?._id && (
+          <>
+            <Link to={'edit'}>
               <button className={style.btn}>
-                <MdDelete className={style.icon} />
-                Xóa danh sách này
+                <FaPen className={style.icon} />
+                Sửa đổi danh sách này
               </button>
-              <button
-                className={style.btn}
-                onClick={handlePin}
-              >
-                <MdOutlineAccountCircle
-                  className={style.icon}
-                />
-                {listTrack?.pin
-                  ? 'Ẩn khỏi hồ sơ'
-                  : 'Hiện trên hồ sơ'}
-              </button>
-            </>
-          )}
-          {role == ERole.USER &&
-            idRole?._id !== listTrack.author?._id && (
-              <>
-                <button
-                  className={style.btn}
-                  onClick={handleAddWishList}
-                >
-                  {likedListTrack ? (
-                    <>
-                      <IoHeart className={style.icon} />
-                      Xóa khỏi thư viện
-                    </>
-                  ) : (
-                    <>
-                      <IoHeartOutline
-                        className={style.icon}
-                      />
-                      Thêm vào thư viện
-                    </>
-                  )}
-                </button>
-              </>
-            )}
+            </Link>
+            <button
+              className={style.btn}
+              onClick={handlePin}
+            >
+              <MdOutlineAccountCircle
+                className={style.icon}
+              />
+              {listTrack?.pin
+                ? 'Ẩn khỏi hồ sơ'
+                : 'Hiện trên hồ sơ'}
+            </button>
+          </>
+        )}
+        {(isAdmin ||
+          idRole?._id === listTrack?.author?._id) && (
           <button
             className={style.btn}
-            onClick={() =>
-              navigator.clipboard.writeText(
-                window.location.href
-              )
-            }
+            onClick={() => setIsDelete(true)}
           >
-            <FaShare className={style.icon} />
-            Chia sẻ
+            <MdDelete className={style.icon} />
+            Xóa danh sách này
           </button>
-        </div>
-      </>
+        )}
+        {role == ERole.USER &&
+          idRole?._id !== listTrack.author?._id && (
+            <button
+              className={style.btn}
+              onClick={handleAddWishList}
+            >
+              {likedListTrack ? (
+                <>
+                  <IoHeart className={style.icon} />
+                  Xóa khỏi thư viện
+                </>
+              ) : (
+                <>
+                  <IoHeartOutline className={style.icon} />
+                  Thêm vào thư viện
+                </>
+              )}
+            </button>
+          )}
+        <button
+          className={style.btn}
+          onClick={handleReport}
+        >
+          <MdMessage className={style.icon} />
+          Báo cáo
+        </button>
+        <button
+          className={style.btn}
+          onClick={() =>
+            navigator.clipboard.writeText(
+              window.location.href
+            )
+          }
+        >
+          <FaShare className={style.icon} />
+          Chia sẻ
+        </button>
+      </div>
+      {isDelete && (
+        <Deletion
+          setExit={setIsDelete}
+          api={`api/v1/listtracks/${listTrack?._id}`}
+          navigation={true}
+        />
+      )}
     </div>
   )
 }

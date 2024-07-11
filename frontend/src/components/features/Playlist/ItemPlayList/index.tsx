@@ -190,7 +190,6 @@ const ItemPlayList = ({
             <Link
               to={`/track/${track?.slug}${track?._id}.html`}
               onClick={() => {
-                handlePlay()
                 handleAddSearch(
                   track?.title,
                   track?.photo,

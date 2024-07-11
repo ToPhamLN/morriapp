@@ -58,12 +58,12 @@ const GenreDetails = () => {
           </h1>
         </div>
       </div>
-      <div className={style.map}>
+      {/* <div className={style.map}>
         <SlickPlaylist
           nameSection='Do biên tập tuyển chọn'
           listListTrack={listTracks}
         />
-      </div>
+      </div> */}
       <div className={style.topic__ctn}>
         <h1>Dành cho bạn</h1>
         <div

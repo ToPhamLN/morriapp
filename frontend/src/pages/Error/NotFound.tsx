@@ -17,7 +17,7 @@ const NotFound: React.FC = () => {
           Tại sao bạn lại ở đây ?
         </div>
         <div className={style.message}>
-          Bạn không được phép ở đây :)))
+          Bạn không được phép ở đây =)))
         </div>
         <div
           className={style.control}

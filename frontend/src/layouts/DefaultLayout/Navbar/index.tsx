@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
         </Link>
       </div>
       <div className={style.nav__center}>
-        {!isAdmin && <SearchNav />}
+        <SearchNav />
       </div>
       {idRole ? (
         <Auth notifications={notifications} />

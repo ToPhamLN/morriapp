@@ -1,19 +1,11 @@
-import React, {
-  ChangeEvent,
-  useEffect,
-  useState
-} from 'react'
-import {
-  MdDelete,
-  MdFilterList,
-  MdMusicNote,
-  MdOutlineRemoveRedEye,
-  MdSearch
-} from 'react-icons/md'
-import { Link, useSearchParams } from 'react-router-dom'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { IoPeople } from 'react-icons/io5'
+import { MdFilterList, MdSearch } from 'react-icons/md'
+import { useSearchParams } from 'react-router-dom'
 import { Pagination } from '~/components/common'
 import style from '~/styles/Table.module.css'
 import { DUser } from '~/types/data'
+import Row from './Row'
 
 interface Props {
   data: DUser[]
@@ -112,8 +104,8 @@ const UserTable = ({ data: initialData, total }: Props) => {
   return (
     <div className={style.table}>
       <div className={style.header}>
-        <MdMusicNote className={style.icon} />
-        <h3>Danh sách nhạc</h3>
+        <IoPeople className={style.icon} />
+        <h3>Danh sách người dùng</h3>
         <MdFilterList className={style.icon} />
         <input
           type='text'
@@ -138,30 +130,7 @@ const UserTable = ({ data: initialData, total }: Props) => {
         </thead>
         <tbody>
           {data?.map((row, i) => (
-            <tr key={i}>
-              <td>{i + 1}</td>
-              <td>
-                <Link
-                  to={`/user/${row?.slug}${row?._id}.html`}
-                >
-                  {row?.username}
-                </Link>
-              </td>
-
-              <td>
-                <div className={style.option__ctn}>
-                  <Link
-                    to={`/user/${row?.slug}${row?._id}.html`}
-                    className={style.option}
-                  >
-                    <MdOutlineRemoveRedEye />
-                  </Link>
-                  <span className={style.option}>
-                    <MdDelete />
-                  </span>
-                </div>
-              </td>
-            </tr>
+            <Row key={i} i={i} row={row} />
           ))}
         </tbody>
       </table>

@@ -1,17 +1,23 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import React, {
+  ChangeEvent,
+  useEffect,
+  useState
+} from 'react'
 import {
+  MdDelete,
   MdFilterList,
-  MdMusicNote,
+  MdMessage,
+  MdOutlineRemoveRedEye,
   MdSearch
 } from 'react-icons/md'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { Pagination } from '~/components/common'
 import style from '~/styles/Table.module.css'
-import { DTrack } from '~/types/data'
+import { DReport } from '~/types/data'
 import Row from './Row'
 
 interface Props {
-  data: DTrack[]
+  data: DReport[]
   total: number
 }
 
@@ -21,9 +27,9 @@ const TrackTable = ({
   data: initialData,
   total
 }: Props) => {
-  const [data, setData] = useState<DTrack[]>(initialData)
+  const [data, setData] = useState<DReport[]>(initialData)
   const [sortConfig, setSortConfig] = useState<{
-    key: keyof DTrack
+    key: keyof DReport
     order: SortOrder
   } | null>(null)
 
@@ -39,7 +45,7 @@ const TrackTable = ({
     setSearchParams(query)
   }
 
-  const sortData = (key: keyof DTrack) => {
+  const sortData = (key: keyof DReport) => {
     let order: SortOrder = 'asc'
     if (
       sortConfig &&
@@ -89,7 +95,7 @@ const TrackTable = ({
     setSortConfig({ key, order })
   }
 
-  const getClassNamesFor = (key: keyof DTrack) => {
+  const getClassNamesFor = (key: keyof DReport) => {
     if (!sortConfig) return ''
 
     const sortOrderClass =
@@ -110,8 +116,8 @@ const TrackTable = ({
   return (
     <div className={style.table}>
       <div className={style.header}>
-        <MdMusicNote className={style.icon} />
-        <h3>Danh sách nhạc</h3>
+        <MdMessage className={style.icon} />
+        <h3>Danh sách báo cáo</h3>
         <MdFilterList className={style.icon} />
         <input
           type='text'
@@ -128,25 +134,19 @@ const TrackTable = ({
               onClick={() => sortData('title')}
               className={getClassNamesFor('title')}
             >
-              Tên bài hát
+              Đối tượng
             </th>
             <th
-              onClick={() => sortData('author')}
-              className={getClassNamesFor('author')}
+              onClick={() => sortData('category')}
+              className={getClassNamesFor('category')}
             >
-              Nghệ sĩ
+              Loại
             </th>
             <th
-              onClick={() => sortData('listens')}
-              className={getClassNamesFor('listens')}
+              onClick={() => sortData('sender')}
+              className={getClassNamesFor('sender')}
             >
-              Lượt nghe
-            </th>
-            <th
-              onClick={() => sortData('likes')}
-              className={getClassNamesFor('likes')}
-            >
-              Lượt thích
+              Người gửi
             </th>
             <th>Tùy chọn</th>
           </tr>

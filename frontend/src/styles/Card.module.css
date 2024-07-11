@@ -88,6 +88,7 @@
 }
 
 .card__playlist .playlist__artist {
+    min-height: 4rem;
     flex: 0 0 auto;
     color: var(--text)
 }

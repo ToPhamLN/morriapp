@@ -1,4 +1,9 @@
-import { ERole, ECategory, EGenre } from '~/constants/enum'
+import {
+  ERole,
+  ECategory,
+  EGenre,
+  EReportCategory
+} from '~/constants/enum'
 
 interface DImage {
   path: string
@@ -103,4 +108,16 @@ interface DNotifiction {
   title?: string
   message?: string
   path?: string
+}
+
+interface DReport {
+  _id?: string
+  sender?: DAuthor
+  senderCategory?: string
+  title?: string
+  photo?: string
+  path?: string
+  slug?: string
+  category?: EReportCategory
+  description?: string
 }

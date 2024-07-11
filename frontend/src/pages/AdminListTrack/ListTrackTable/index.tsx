@@ -6,6 +6,7 @@ import React, {
 import {
   MdDelete,
   MdFilterList,
+  MdLibraryMusic,
   MdMusicNote,
   MdOutlineRemoveRedEye,
   MdSearch
@@ -14,6 +15,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { Pagination } from '~/components/common'
 import style from '~/styles/Table.module.css'
 import { DListTrack } from '~/types/data'
+import Row from './Row'
 
 interface Props {
   data: DListTrack[]
@@ -115,8 +117,8 @@ const ListTrackTable = ({
   return (
     <div className={style.table}>
       <div className={style.header}>
-        <MdMusicNote className={style.icon} />
-        <h3>Danh sách nhạc</h3>
+        <MdLibraryMusic className={style.icon} />
+        <h3>Danh sách phát </h3>
         <MdFilterList className={style.icon} />
         <input
           type='text'
@@ -158,40 +160,7 @@ const ListTrackTable = ({
         </thead>
         <tbody>
           {data?.map((row, i) => (
-            <tr key={i}>
-              <td>{i + 1}</td>
-              <td>
-                <Link
-                  to={`/${row?.category?.toLowerCase()}/${row?.slug}${row?._id}.html`}
-                >
-                  {row?.title}
-                </Link>
-              </td>
-              <td>{row?.category}</td>
-              <td>
-                {row.author && (
-                  <Link
-                    to={`/artist/${row.author?.slug}${row?.author?._id}.html`}
-                  >
-                    {row?.author?.username}
-                  </Link>
-                )}
-              </td>
-              <td>{row?.listens}</td>
-              <td>
-                <div className={style.option__ctn}>
-                  <Link
-                    to={`/${row?.category?.toLowerCase()}/${row?.slug}${row?._id}.html`}
-                    className={style.option}
-                  >
-                    <MdOutlineRemoveRedEye />
-                  </Link>
-                  <span className={style.option}>
-                    <MdDelete />
-                  </span>
-                </div>
-              </td>
-            </tr>
+            <Row key={i} i={i} row={row} />
           ))}
         </tbody>
       </table>

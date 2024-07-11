@@ -3,6 +3,7 @@ import {
   addTrack,
   count,
   createListTrack,
+  deleteListTrack,
   getAlbum,
   getListTracks,
   pinlistTrack,
@@ -31,5 +32,6 @@ route.put('/addtrack/:idListTrack', verifyToken, addTrack)
 route.get('/all', getListTracks)
 route.get('/count', count)
 route.get('/:idListTrack', getAlbum)
+route.delete('/:idListTrack', verifyToken, deleteListTrack)
 
 export default route

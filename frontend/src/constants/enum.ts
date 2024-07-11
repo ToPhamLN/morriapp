@@ -3,6 +3,15 @@ export enum ERole {
   ARTIST = 'Artist'
 }
 
+export enum EReportCategory {
+  INAPPROPRIATE_CONTENT = 'Nội dung không phù hợp',
+  COPYRIGHT = 'Bản quyền',
+  TECHNICAL_ISSUE = 'Lỗi kỹ thuật',
+  INCORRECT_INFORMATION = 'Thông tin sai lệch',
+  USER_BEHAVIOR = 'Hành vi người dùng',
+  OTHER = 'Khác'
+}
+
 export enum ECategory {
   PLAYLIST = 'Playlist',
   ALBUM = 'Album',

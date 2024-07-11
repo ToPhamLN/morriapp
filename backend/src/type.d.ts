@@ -1,5 +1,5 @@
 import { Document, Types } from 'mongoose'
-import { EGenre, EListens, ERole } from '~/types'
+import { ECategory, EGenre, EListens, ERole } from '~/types'
 
 declare global {
   interface IImage {
@@ -59,7 +59,7 @@ declare global {
   }
 
   interface IListTrack extends Document {
-    category: string
+    category: ECategory
     title: string
     photo: IImage
     background: string
@@ -107,6 +107,17 @@ declare global {
     message: string
     photo: IImage
     isReaded: boolean
+  }
+
+  interface IReport extends Document {
+    sender: Types.ObjectId
+    senderCategory: ERole
+    path: string
+    picture: string
+    title?: string
+    category?: string
+    description?: string
+    slug: string
   }
 }
 

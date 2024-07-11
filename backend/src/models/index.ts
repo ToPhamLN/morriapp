@@ -8,6 +8,7 @@ import InteractionModel from './interactions.model'
 import FollowingModel from './followings.model'
 import MonthlyListenModel from './monlyListens.model'
 import NotificationModel from './notifications.model'
+import ReportModel from './reports.model'
 
 export {
   UserModel,
@@ -19,5 +20,6 @@ export {
   InteractionModel,
   FollowingModel,
   MonthlyListenModel,
-  NotificationModel
+  NotificationModel,
+  ReportModel
 }

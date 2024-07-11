@@ -14,7 +14,8 @@ import {
   userRoutes,
   followingRoutes,
   monthlyListensRoutes,
-  notificationsRoutes
+  notificationsRoutes,
+  reportsRoutes
 } from './routes'
 import {
   notFound,
@@ -49,6 +50,7 @@ app.use('/api/v1/users', userRoutes)
 app.use('/api/v1/followings', followingRoutes)
 app.use('/api/v1/monthlylistens', monthlyListensRoutes)
 app.use('/api/v1/notifications', notificationsRoutes)
+app.use('/api/v1/reports', reportsRoutes)
 
 app.use(notFound)
 app.use(errorHandler)
