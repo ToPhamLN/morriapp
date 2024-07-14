@@ -1,5 +1,5 @@
 .table {
-    background-color: #f8f8f8;
+    background-color: var(--card);
     width: 100%;
     padding: 1.8rem;
     text-align: center;
@@ -15,7 +15,6 @@
 .table a {
     color: var(--text);
 }
-
 
 .table table {
     width: 100%;
@@ -43,7 +42,7 @@
     padding-bottom: 2rem;
     position: sticky;
     top: 0;
-    background-color: #f8f8f8;
+    background-color: var(--card);
 }
 
 .header h3 {
@@ -61,7 +60,6 @@
     border-collapse: collapse;
 }
 
-
 .table tbody td,
 .table thead th {
     height: 4rem;
@@ -71,8 +69,8 @@
 
 .table thead {
     position: sticky;
-    top: 5.5rem;
-    background: #f8f8f8;
+    top: 5.4rem;
+    background: var(--card);
 }
 
 .table thead th {
@@ -176,4 +174,5 @@
     text-align: center;
     font-size: 1.5rem;
     font-weight: 500;
+    color: var(--text-color)
 }

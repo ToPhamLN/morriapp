@@ -12,11 +12,26 @@ import ArtistLayout from './layouts/ArtistLayout'
 import { useAppSelector } from './hooks'
 import { ERole } from './constants/enum'
 import AdminLayout from './layouts/AdminLayout'
+import OneSignal from 'react-onesignal'
+import { useEffect } from 'react'
 
 const App: React.FC = () => {
   const { role, isAdmin } = useAppSelector(
     (state) => state.profile
   )
+
+  // useEffect(() => {
+  //   const initOneSignal = async () => {
+  //     await OneSignal.init({
+  //       appId
+  //     })
+  //   }
+
+  //   initOneSignal()
+  // }, [])
+  useEffect(() => {
+    runOneSignal()
+  })
 
   return (
     <Routes>
@@ -119,3 +134,14 @@ const App: React.FC = () => {
 }
 
 export default App
+
+async function runOneSignal() {
+  const appId = 'd162ac35-267a-4aa9-8c56-b4b432a7d591'
+  console.log(appId)
+
+  await OneSignal.init({
+    appId,
+    allowLocalhostAsSecureOrigin: true
+  })
+  OneSignal.Slidedown.promptPush()
+}
