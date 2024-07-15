@@ -31,7 +31,6 @@ const PromptAuth = ({ setExit, photo }: Props) => {
           <h1>
             Vui lòng đăng nhập để có trải nghiệm tốt nhất
           </h1>
-          <Passport />
           <button
             className={style.btn}
             onClick={() =>

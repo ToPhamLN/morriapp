@@ -1,6 +1,8 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
+import cookieSession from 'cookie-session'
+import passport from 'passport'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import { connect } from '~/config/db'
@@ -21,11 +23,24 @@ import {
   notFound,
   errorHandler
 } from '~/middlewares/error.middlewares'
+import './config/passport'
 
 dotenv.config()
 
 const app: express.Application = express()
 const port = process.env.PORT ?? 5000
+
+app.use(
+  cookieSession({
+    name: 'session',
+    keys: ['morri'],
+    maxAge: 24 * 60 * 60 * 1000
+  })
+)
+app.use(cookieParser())
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 const corsOptions: cors.CorsOptions = {
   origin: 'http://localhost:3000',
@@ -34,9 +49,7 @@ const corsOptions: cors.CorsOptions = {
   optionsSuccessStatus: 204,
   credentials: true
 }
-
 app.use(cors(corsOptions))
-app.use(cookieParser())
 
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
 app.use(bodyParser.json({ limit: '50mb' }))

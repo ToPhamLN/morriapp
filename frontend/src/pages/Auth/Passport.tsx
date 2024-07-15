@@ -1,9 +1,16 @@
 import React from 'react'
 import style from '~/styles/Login.module.css'
 const Passport = () => {
+  const baseURL = 'http://localhost:8000'
+  const google = () => {
+    window.open(`${baseURL}/api/v1/auths/google`, '_self')
+  }
+  const facebook = () => {
+    window.open(`${baseURL}/api/v1/auths/facebook`, '_self')
+  }
   return (
     <div className={style.passport}>
-      <button>
+      <button onClick={google}>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           x='0px'
@@ -31,7 +38,7 @@ const Passport = () => {
         </svg>
         Đăng nhập bằng Google
       </button>
-      <button>
+      <button onClick={facebook}>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           x='0px'
