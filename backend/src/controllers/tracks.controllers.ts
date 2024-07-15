@@ -239,10 +239,11 @@ export const deleteTrack = async (
       })
     }
     await TrackModel.findByIdAndDelete(idTrack)
-    if (existedTrack?.photo?.fileName)
-      await cloudinary.uploader.destroy(
-        existedTrack?.photo?.fileName
-      )
+    const { photo, source } = existedTrack
+    if (photo?.fileName)
+      await cloudinary.uploader.destroy(photo?.fileName)
+    if (source?.fileName)
+      await cloudinary.uploader.destroy(source?.fileName)
     res.status(200).json({ message: 'Xóa bài hát thành công!' })
   } catch (error) {
     next(error)

@@ -8,6 +8,7 @@ import {
 import bcrypt from 'bcrypt'
 import { ERole } from '~/types'
 import { v2 as cloudinary } from 'cloudinary'
+import { sendNotification } from '~/config/pushNotification'
 
 export const postSignup = async (
   req: Request,
@@ -92,7 +93,10 @@ export const postLogin = async (
       path: '/',
       sameSite: 'strict'
     })
-
+    sendNotification({
+      message: 'Chào mừng bạn đến với Morri',
+      title: 'Đăng nhập thành công'
+    })
     res.status(200).json({
       auth: { ...others, accessToken },
       message: 'Đăng nhập thành công'

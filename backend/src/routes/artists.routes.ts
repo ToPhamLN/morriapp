@@ -1,6 +1,7 @@
 import express from 'express'
 import {
   countArtist,
+  delelteArtist,
   getArtist,
   getArtists,
   updateArtist
@@ -22,5 +23,6 @@ route.put(
   ]),
   updateArtist
 )
+route.delete('/:idArtist', verifyToken, delelteArtist)
 
 export default route

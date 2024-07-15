@@ -124,7 +124,9 @@ const UserTable = ({ data: initialData, total }: Props) => {
             >
               Người dùng
             </th>
-
+            <th>Danh sách phát</th>
+            <th>Bài hát ưa thích</th>
+            <th>Đang theo dõi</th>
             <th>Tùy chọn</th>
           </tr>
         </thead>

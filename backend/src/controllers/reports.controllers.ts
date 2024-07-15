@@ -121,3 +121,24 @@ export const countReports = async (
     next(error)
   }
 }
+
+export const delelteReport = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { idReport } = req.params
+    const existedArtist = await ReportModel.findById(idReport)
+    if (!existedArtist) {
+      return res.status(404).json({
+        message: 'Bạn đã xóa báo cáo này rồi!'
+      })
+    }
+    await ReportModel.findByIdAndDelete(idReport)
+
+    res.status(200).json({ message: 'Xóa báo cáo thành công!' })
+  } catch (error) {
+    next(error)
+  }
+}

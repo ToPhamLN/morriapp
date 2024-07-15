@@ -13,27 +13,27 @@ import {
   reverseSuffle,
   sortPlayList
 } from '~/utils/array'
-
+const nullState = {
+  listInfo: null!,
+  list: [],
+  waitingList: [],
+  track: null!,
+  volume: {
+    isMute: false,
+    value: 1
+  },
+  isPlaying: false,
+  currentTime: 0,
+  mode: {
+    isLoop: false,
+    isReplay: false,
+    isSuffle: false
+  }
+}
 const initialState: TrackPlaySliceType =
   localStorage.getItem('trackPlay')
     ? JSON.parse(localStorage.getItem('trackPlay')!)
-    : {
-        listInfo: null!,
-        list: [],
-        waitingList: [],
-        track: null!,
-        volume: {
-          isMute: false,
-          value: 1
-        },
-        isPlaying: false,
-        currentTime: 0,
-        mode: {
-          isLoop: false,
-          isReplay: false,
-          isSuffle: false
-        }
-      }
+    : nullState
 
 const updateWaitingList = (state: TrackPlaySliceType) => {
   const { track, list, mode } = state
@@ -139,6 +139,14 @@ const trackPlaySlice = createSlice({
       action: PayloadAction<boolean>
     ) => {
       state.isPlaying = action.payload
+    },
+    setNull: (state) => {
+      state = nullState
+      localStorage.setItem(
+        'trackPlay',
+        JSON.stringify(state)
+      )
+      return nullState
     }
   }
 })
@@ -152,7 +160,8 @@ export const {
   setVolume,
   setMode,
   setIsPlaying,
-  setListInfo
+  setListInfo,
+  setNull
 } = trackPlaySlice.actions
 
 export default trackPlaySlice.reducer

@@ -11,6 +11,7 @@ import SlickPlaylist from './SlickPlaylist'
 import SlickPeople from './SlickPeple'
 import ItemNotify from './ItemNotify'
 import Navigator from './Navigator'
+import PromptAuth from './PromptAuth'
 
 export {
   ItemListBar,
@@ -25,5 +26,6 @@ export {
   Playlist,
   CardPlaylist,
   CardPeople,
-  Navigator
+  Navigator,
+  PromptAuth
 }

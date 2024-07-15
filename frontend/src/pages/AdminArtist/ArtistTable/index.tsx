@@ -127,6 +127,9 @@ const ArtistTable = ({
             >
               Nghệ sĩ
             </th>
+            <th>Dự án âm nhạc</th>
+            <th>Bài hát</th>
+            <th>Theo dõi</th>
             <th
               onClick={() => sortData('listens')}
               className={getClassNamesFor('listens')}

@@ -32,7 +32,6 @@ const profileSlice = createSlice({
     },
     deleteProfile: (state) => {
       state = {}
-      console.log(state)
       localStorage.removeItem('profile')
       return state
     }

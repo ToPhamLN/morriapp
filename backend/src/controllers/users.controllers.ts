@@ -175,3 +175,32 @@ export const count = async (
     next(error)
   }
 }
+
+export const delelteUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { idUser } = req.params
+    const existedArtist = await UserModel.findById(idUser)
+    if (!existedArtist) {
+      return res.status(404).json({
+        message: 'Bạn đã xóa người nghe này rồi!'
+      })
+    }
+    await UserModel.findByIdAndDelete(idUser)
+    const { avatar, background } = existedArtist
+    if (avatar?.fileName) {
+      await cloudinary.uploader.destroy(avatar?.fileName)
+    }
+    if (background?.fileName) {
+      await cloudinary.uploader.destroy(background?.fileName)
+    }
+    res
+      .status(200)
+      .json({ message: 'Xóa người nghe thành công!' })
+  } catch (error) {
+    next(error)
+  }
+}

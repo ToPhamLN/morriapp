@@ -4,9 +4,16 @@ import {
   MdOutlineRemoveRedEye
 } from 'react-icons/md'
 import { Link } from 'react-router-dom'
+import useSWR from 'swr'
 import { Deletion } from '~/components/common'
+import { useFetcher } from '~/hooks'
 import style from '~/styles/Table.module.css'
-import { DArtist } from '~/types/data'
+import {
+  DArtist,
+  DListTrack,
+  DPerson,
+  DTrack
+} from '~/types/data'
 
 interface Props {
   row: DArtist
@@ -19,6 +26,35 @@ const Row = ({ row, i }: Props) => {
   const handleDelete = () => {
     setIsDelete(true)
   }
+  const fetcher = useFetcher()
+
+  const apiFollower = `api/v1/followings/artists/${row?._id}`
+  const { data: follower } = useSWR(
+    apiFollower + i + 'artisttable',
+    () => fetcher(apiTrack)
+  ) as { data: DPerson[] }
+
+  const apiTrack = `api/v1/tracks/all`
+  const { data: tracks } = useSWR(
+    apiTrack + i + 'artisttable',
+    () =>
+      fetcher(apiTrack, {
+        params: {
+          author: row?._id
+        }
+      })
+  ) as { data: DTrack[] }
+
+  const apiListTrack = `api/v1/listtracks/all`
+  const { data: listTracks } = useSWR(
+    apiListTrack + i + 'artisttable',
+    () =>
+      fetcher(apiListTrack, {
+        params: {
+          author: row?._id
+        }
+      })
+  ) as { data: DListTrack[] }
 
   return (
     <>
@@ -29,6 +65,9 @@ const Row = ({ row, i }: Props) => {
             {row?.username}
           </Link>
         </td>
+        <td>{listTracks?.length}</td>
+        <td>{tracks?.length}</td>
+        <td>{follower?.length}</td>
         <td>{row?.listens}</td>
         <td>
           <div className={style.option__ctn}>

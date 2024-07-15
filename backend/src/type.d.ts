@@ -1,3 +1,4 @@
+import * as OneSignal from '@onesignal/node-onesignal'
 import { Document, Types } from 'mongoose'
 import { ECategory, EGenre, EListens, ERole } from '~/types'
 
@@ -123,6 +124,7 @@ declare global {
 
 declare module 'express' {
   interface Request {
-    auth?: AuthModel | null | undefined
+    auth?: AuthModel
+    appInfo?: OneSignal.App
   }
 }

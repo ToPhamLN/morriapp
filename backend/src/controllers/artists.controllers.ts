@@ -2,6 +2,7 @@ import { Response, Request, NextFunction } from 'express'
 import { ArtistModel } from '~/models'
 import { v2 as cloudinary } from 'cloudinary'
 import { convertSlug } from '~/utils/helper'
+import { emitWarning } from 'process'
 
 interface IReqFiles {
   avatar?: Express.Multer.File[] | []
@@ -166,6 +167,33 @@ export const countArtist = async (
   try {
     const count = await ArtistModel.countDocuments().exec()
     res.status(200).json(count)
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const delelteArtist = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { idArtist } = req.params
+    const existedArtist = await ArtistModel.findById(idArtist)
+    if (!existedArtist) {
+      return res.status(404).json({
+        message: 'Bạn đã xóa nghệ sĩ này rồi!'
+      })
+    }
+    await ArtistModel.findByIdAndDelete(idArtist)
+    const { avatar, background } = existedArtist
+    if (avatar?.fileName) {
+      await cloudinary.uploader.destroy(avatar?.fileName)
+    }
+    if (background?.fileName) {
+      await cloudinary.uploader.destroy(background?.fileName)
+    }
+    res.status(200).json({ message: 'Xóa nghệ sĩ thành công!' })
   } catch (error) {
     next(error)
   }

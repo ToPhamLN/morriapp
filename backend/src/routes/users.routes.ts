@@ -1,6 +1,7 @@
 import express from 'express'
 import {
   count,
+  delelteUser,
   getUser,
   getUsers,
   updateUser
@@ -22,5 +23,5 @@ route.put(
   verifyToken,
   updateUser
 )
-
+route.delete('/:idUser', verifyToken, delelteUser)
 export default route

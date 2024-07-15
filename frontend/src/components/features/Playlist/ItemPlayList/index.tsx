@@ -32,6 +32,7 @@ import {
   setTrack
 } from '~/reduxStore/trackPlaySlice'
 import { mutate } from 'swr'
+import PromptAuth from '../../PromptAuth'
 
 type DListTrackWithoutList = Omit<DListTrack, 'list'>
 
@@ -52,6 +53,8 @@ const ItemPlayList = ({
 }: Props) => {
   const [isMoreVisible, setIsMoreVisible] =
     useState<boolean>(false)
+  const [promptAuth, setPropmtAuth] =
+    useState<boolean>(false)
   const moreOptionRef = useRef<HTMLDivElement>(null)
   const [location, setLocation] = useState<{
     top: number
@@ -64,7 +67,7 @@ const ItemPlayList = ({
   const { isPlaying, track: trackPlaying } = useAppSelector(
     (state) => state.trackPlay
   )
-  const { role, idRole } = useAppSelector(
+  const { role, idRole, _id } = useAppSelector(
     (state) => state.profile
   )
   const axios = useAxiosPrivate()
@@ -119,6 +122,7 @@ const ItemPlayList = ({
   const { handleAddSearch } = useSearchHandler()
 
   const handlePlay = () => {
+    if (!_id) return setPropmtAuth(true)
     dispatch(setListInfo(listInfo as DListTrack))
     dispatch(setTrack(track))
     if (role != ERole.ARTIST) dispatch(setList(list))
@@ -147,7 +151,6 @@ const ItemPlayList = ({
       console.log(error)
     }
   }
-
   const likedTrack = track?._id
     ? interaction?.wishTrack?.includes(track?._id)
     : false
@@ -331,6 +334,12 @@ const ItemPlayList = ({
           handleLikeTrack={handleLikeTrack}
           likedTrack={likedTrack}
           listInfo={listInfo}
+        />
+      )}
+      {promptAuth && (
+        <PromptAuth
+          setExit={setPropmtAuth}
+          photo={track?.photo?.path}
         />
       )}
     </div>

@@ -1,7 +1,7 @@
 import { v2 as cloudinary } from 'cloudinary'
 import { Request, Response, NextFunction } from 'express'
 import { ListTrackModel } from '~/models'
-import { EGenre } from '~/types'
+import { ECategory, EGenre } from '~/types'
 import { convertSlug } from '~/utils/helper'
 import { getListTrackLike } from './interactions.controllers'
 
@@ -9,7 +9,7 @@ interface IReqBody {
   photoOld: string
   description?: string
   title?: string
-  category?: string
+  category?: ECategory
   background?: string
   genre?: EGenre[]
 }

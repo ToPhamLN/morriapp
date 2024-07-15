@@ -24,7 +24,6 @@ const ArtistAlbum = () => {
   return (
     <div className={style.artist__album}>
       <h1>Album của tôi</h1>
-
       <div className={style2.grid}>
         {data?.map((album) => (
           <CardPlaylist key={album._id} listTrack={album} />

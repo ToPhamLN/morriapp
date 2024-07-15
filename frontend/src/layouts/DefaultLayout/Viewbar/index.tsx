@@ -9,11 +9,16 @@ import {
   useAppSelector,
   useFetcher
 } from '~/hooks'
-import { setIsRecently } from '~/reduxStore/globalSlice'
+import {
+  setIsRecently,
+  setIsView
+} from '~/reduxStore/globalSlice'
 import ListPlaying from './ListPlaying'
 import { DInteraction } from '~/types/data'
 import useSWR from 'swr'
 import RecentlyTrack from './RecentlyTrack'
+import { MdDelete } from 'react-icons/md'
+import { setNull } from '~/reduxStore/trackPlaySlice'
 
 const Viewbar: React.FC = () => {
   const { view } = useAppSelector((state) => state.global)
@@ -29,6 +34,11 @@ const Viewbar: React.FC = () => {
       : null,
     fetcher
   ) as { data: DInteraction }
+
+  const handleClear = () => {
+    dispatch(setNull())
+    dispatch(setIsView(!view.isView))
+  }
 
   return (
     <div className={style.viewbar}>
@@ -47,10 +57,16 @@ const Viewbar: React.FC = () => {
             Nghe gần đây
           </button>
         </div>
-        {/* <button className={style.btn__header}>
+        <button className={style.btn__header}>
           <LuAlarmClock />
         </button>
-        <button className={style.btn__header}>
+        <button
+          className={style.btn__header}
+          onClick={handleClear}
+        >
+          <MdDelete />
+        </button>
+        {/* <button className={style.btn__header}>
           <LuMoreHorizontal />
         </button> */}
       </div>
