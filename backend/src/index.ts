@@ -26,17 +26,17 @@ import {
 import './config/passport'
 
 dotenv.config()
-
 const app: express.Application = express()
 const port = process.env.PORT ?? 5000
 
 app.use(
   cookieSession({
     name: 'session',
-    keys: ['morri'],
+    keys: [process.env.SESSION_SECRET as string],
     maxAge: 24 * 60 * 60 * 1000
   })
 )
+
 app.use(cookieParser())
 
 app.use(passport.initialize())

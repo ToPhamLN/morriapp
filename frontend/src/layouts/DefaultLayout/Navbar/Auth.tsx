@@ -15,7 +15,11 @@ import {
 import { RiLogoutBoxFill } from 'react-icons/ri'
 import { Link, useNavigate } from 'react-router-dom'
 import Notify from './Notify'
-import { useAppSelector, useAppDispatch } from '~/hooks'
+import {
+  useAppSelector,
+  useAppDispatch,
+  useAxiosPrivate
+} from '~/hooks'
 import { DNotifiction } from '~/types/data'
 import { setThemeMode } from '~/reduxStore/settingsSlice'
 import { setProfile } from '~/reduxStore/profileSlice'
@@ -30,10 +34,11 @@ const Auth = ({ notifications }: Props) => {
     useState<boolean>(false)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const axios = useAxiosPrivate()
 
   const notifyRef = useRef<HTMLDivElement | null>(null)
   const moreRef = useRef<HTMLDivElement | null>(null)
-  const { role, idRole } = useAppSelector(
+  const { role, idRole, accessToken } = useAppSelector(
     (state) => state.profile
   )
   const { theme } = useAppSelector(
@@ -48,7 +53,15 @@ const Auth = ({ notifications }: Props) => {
     setOpenNotify((p) => !p)
   }, [])
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
+    try {
+      const res = await axios.post('api/v1/auths/logout', {
+        token: accessToken
+      })
+      console.log(res.data)
+    } catch (error) {
+      console.log(error)
+    }
     dispatch(setProfile({}))
     navigate('/login')
   }

@@ -6,14 +6,12 @@ import {
 } from 'passport-google-oauth20'
 import {
   Strategy as FacebookStrategy,
-  Profile as FacebookProfile,
-  VerifyCallback as FacebookVerifyCallback
+  Profile as FacebookProfile
 } from 'passport-facebook'
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID as string
 const GOOGLE_CLIENT_SECRET = process.env
   .GOOGLE_CLIENT_SECRET as string
-
 const FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID as string
 const FACEBOOK_APP_SECRET = process.env
   .FACEBOOK_APP_SECRET as string
@@ -25,13 +23,12 @@ passport.use(
       clientSecret: GOOGLE_CLIENT_SECRET,
       callbackURL: '/api/v1/auths/google/callback'
     },
-    (
+    async (
       accessToken: string,
       refreshToken: string,
       profile: GoogleProfile,
       done: GoogleVerifyCallback
     ) => {
-      console.log(profile)
       return done(null, profile)
     }
   )
@@ -42,15 +39,15 @@ passport.use(
     {
       clientID: FACEBOOK_APP_ID,
       clientSecret: FACEBOOK_APP_SECRET,
-      callbackURL: '/auth/facebook/callback'
+      callbackURL: '/api/v1/auths/facebook/callback'
     },
     (
       accessToken: string,
       refreshToken: string,
       profile: FacebookProfile,
-      done: FacebookVerifyCallback
+      done: (error: any, user?: any, info?: any) => void
     ) => {
-      done(null, profile)
+      return done(null, profile)
     }
   )
 )

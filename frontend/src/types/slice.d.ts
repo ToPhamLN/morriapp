@@ -5,6 +5,9 @@ interface IProfile {
   accessToken?: string
   role?: string
   isAdmin?: boolean
+  idProvider?: string
+  provider?: string
+  accessToken?: string
   idRole?: {
     _id: string
     username: string

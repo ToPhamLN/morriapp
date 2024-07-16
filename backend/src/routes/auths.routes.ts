@@ -1,8 +1,14 @@
 import express from 'express'
 import {
   createRole,
+  facebookAuth,
+  facebookAuthCallback,
+  googleAuth,
+  googleAuthCallback,
+  logout,
   postLogin,
   postSignup,
+  refresh,
   updateAuth
 } from '~/controllers/auths.controllers'
 import { verifyToken } from '~/middlewares/auth.middlewares'
@@ -11,33 +17,13 @@ import passport from 'passport'
 const CLIENT_URL = process.env.CLIENT_URL as string
 const route: express.Router = express.Router()
 
-route.get(
-  '/google',
-  passport.authenticate('google', {
-    scope: ['profile', 'email']
-  })
-)
+route.get('/google', googleAuth)
+route.get('/google/callback', googleAuthCallback)
 
-route.get(
-  '/google/callback',
-  passport.authenticate('google', {
-    successRedirect: CLIENT_URL,
-    failureRedirect: `${CLIENT_URL}/login`
-  })
-)
-
-route.get('/auth/facebook', passport.authenticate('facebook'))
-
-route.get(
-  '/auth/facebook/callback',
-  passport.authenticate('facebook', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-  })
-)
+route.get('/facebook', facebookAuth)
+route.get('/facebook/callback', facebookAuthCallback)
 
 route.post('/login', postLogin)
-
 route.get('/logout', (req, res, next) => {
   req.logout(function (err) {
     if (err) {
@@ -54,5 +40,7 @@ route.post(
   verifyToken,
   createRole
 )
+route.get('/refresh', refresh)
+route.post('/logout', verifyToken, logout)
 
 export default route

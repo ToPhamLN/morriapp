@@ -4,6 +4,11 @@ export enum ERole {
   ADMIN = 'Admin'
 }
 
+export enum EProvider {
+  GOOGLE = 'google',
+  FACEBOOK = 'facebook'
+}
+
 export enum EReportCategory {
   INAPPROPRIATE_CONTENT = 'Nội dung không phù hợp',
   COPYRIGHT = 'Bản quyền',

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import style from '~/styles/Login.module.css'
 const Passport = () => {
   const baseURL = 'http://localhost:8000'
@@ -8,6 +8,7 @@ const Passport = () => {
   const facebook = () => {
     window.open(`${baseURL}/api/v1/auths/facebook`, '_self')
   }
+
   return (
     <div className={style.passport}>
       <button onClick={google}>

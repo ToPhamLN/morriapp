@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   useForm,
   FormProvider,
@@ -7,7 +7,10 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useAppDispatch, useAxiosPublic } from '~/hooks'
-import { updateProfile } from '~/reduxStore/profileSlice'
+import {
+  setProfile,
+  updateProfile
+} from '~/reduxStore/profileSlice'
 import {
   useLocation,
   useNavigate,
@@ -80,6 +83,30 @@ const LoginPage: React.FC = () => {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(
+      location.search
+    )
+    const userParam = searchParams.get('user')
+
+    if (userParam) {
+      const userData = JSON.parse(userParam)
+      const { role, idRole } = userData
+      console.log(userData)
+      dispatch(updateProfile(userData))
+      if (role && idRole) {
+        if (state?.history) {
+          navigate(state?.history)
+        } else {
+          navigate('/')
+        }
+      } else {
+        navigate('/role')
+      }
+    }
+  }, [location.search])
+
   return (
     <div className={style.login}>
       <div

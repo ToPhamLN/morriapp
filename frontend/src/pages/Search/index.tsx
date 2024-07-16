@@ -33,9 +33,8 @@ const Search = () => {
   const apiUsers = 'api/v1/users/all'
   const apiArtists = 'api/v1/artists/all'
 
-  const { data: listTracks } = useSWR(
-    q ? apiListTracks + 'search' : null,
-    () => {
+  const { data: listTracks, isLoading: loadListTracks } =
+    useSWR(q ? apiListTracks + 'search' : null, () => {
       if (q) {
         return fetcher(apiListTracks, {
           params: {
@@ -44,10 +43,9 @@ const Search = () => {
         })
       }
       return null
-    }
-  ) as { data: DListTrack[] }
+    }) as { data: DListTrack[]; isLoading: boolean }
 
-  const { data: tracks } = useSWR(
+  const { data: tracks, isLoading: loadTracks } = useSWR(
     q ? apiTracks + 'search' : null,
     () => {
       if (q) {
@@ -59,9 +57,9 @@ const Search = () => {
       }
       return null
     }
-  ) as { data: DTrack[] }
+  ) as { data: DTrack[]; isLoading: boolean }
 
-  const { data: users } = useSWR(
+  const { data: users, isLoading: loadUsers } = useSWR(
     q ? apiUsers + 'search' : null,
     () => {
       if (q) {
@@ -73,9 +71,9 @@ const Search = () => {
       }
       return null
     }
-  ) as { data: DUser[] }
+  ) as { data: DUser[]; isLoading: boolean }
 
-  const { data: artists } = useSWR(
+  const { data: artists, isLoading: loadArtists } = useSWR(
     q ? apiArtists + 'search' : null,
     () => {
       if (q) {
@@ -87,7 +85,7 @@ const Search = () => {
       }
       return null
     }
-  ) as { data: DArtist[] }
+  ) as { data: DArtist[]; isLoading: boolean }
 
   useEffect(() => {
     mutate(apiListTracks + 'search')
@@ -95,7 +93,6 @@ const Search = () => {
     mutate(apiUsers + 'search')
     mutate(apiArtists + 'search')
   }, [q])
-
   return (
     <div className={style.search}>
       <div className={style.filter}>
@@ -158,8 +155,8 @@ const Search = () => {
           {filter == 'albums' && (
             <ListTrackSection
               listTracks={listTracks?.filter(
-                (track) =>
-                  track.category != ECategory.PLAYLIST
+                (listtrack) =>
+                  listtrack.category != ECategory.PLAYLIST
               )}
               nameSection='Bộ sưu tập'
             />
@@ -167,8 +164,8 @@ const Search = () => {
           {filter == 'playlists' && (
             <ListTrackSection
               listTracks={listTracks?.filter(
-                (track) =>
-                  track.category == ECategory.PLAYLIST
+                (listtrack) =>
+                  listtrack.category == ECategory.PLAYLIST
               )}
               nameSection='Danh sách phát'
             />

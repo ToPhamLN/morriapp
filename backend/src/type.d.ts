@@ -18,6 +18,8 @@ declare global {
     password: string
     role?: ERole
     idRole?: Types.ObjectId
+    idProvider: string
+    provider: EProvider
   }
 
   interface IUser extends Document {

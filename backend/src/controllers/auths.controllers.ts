@@ -9,6 +9,117 @@ import bcrypt from 'bcrypt'
 import { ERole } from '~/types'
 import { v2 as cloudinary } from 'cloudinary'
 import { sendNotification } from '~/config/pushNotification'
+import jwt, { VerifyErrors } from 'jsonwebtoken'
+import passport from 'passport'
+import { Document } from 'mongoose'
+
+const CLIENT_URL = process.env.CLIENT_URL as string
+let refreshTokens: string[] = []
+
+export const googleAuth = passport.authenticate('google', {
+  scope: ['profile', 'email']
+})
+
+interface Provider {
+  provider: string
+  id: string
+}
+
+export const googleAuthCallback = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  passport.authenticate(
+    'google',
+    async (err: any, user: Provider, info: any) => {
+      if (err) {
+        return next(err)
+      }
+      if (!user) {
+        return res.redirect(`${process.env.CLIENT_URL}/login`)
+      }
+      try {
+        await handleAuthSuccess(req, res, user)
+      } catch (err) {
+        next(err)
+      }
+    }
+  )(req, res, next)
+}
+
+export const facebookAuth = passport.authenticate('facebook')
+
+export const facebookAuthCallback = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  passport.authenticate(
+    'facebook',
+    async (err: any, user: Provider, info: any) => {
+      if (err) {
+        return next(err)
+      }
+      if (!user) {
+        return res.redirect(`${process.env.CLIENT_URL}/login`)
+      }
+      try {
+        await handleAuthSuccess(req, res, user)
+      } catch (err) {
+        next(err)
+      }
+    }
+  )(req, res, next)
+}
+
+async function handleAuthSuccess(
+  req: Request,
+  res: Response,
+  user: Provider
+) {
+  req.login(user, async (err) => {
+    if (err) {
+      throw err
+    }
+    const { provider, id: idProvider } = user
+
+    try {
+      let auth = await AuthModel.findOne({
+        provider,
+        idProvider
+      })
+
+      if (!auth) {
+        auth = new AuthModel({
+          provider,
+          idProvider
+        })
+
+        await auth.save()
+      }
+
+      const { password: omitPassword, ...other } =
+        auth.toObject()
+      const accessToken = generateAccessToken(auth)
+      const refreshToken = generateRefreshToken(auth)
+
+      res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: false,
+        path: '/',
+        sameSite: 'strict'
+      })
+
+      res.redirect(
+        `${process.env.CLIENT_URL}/login?user=${JSON.stringify({ ...other, accessToken })}`
+      )
+    } catch (error) {
+      console.error('Error handling authentication:', error)
+      res.status(500).json({ error: 'Internal server error' })
+    }
+  })
+}
 
 export const postSignup = async (
   req: Request,
@@ -226,4 +337,62 @@ export const createRole = async (
       await cloudinary.uploader.destroy(req.file.filename)
     next(error)
   }
+}
+
+export const logout = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err)
+    }
+  })
+  req.session = null
+  refreshTokens = refreshTokens.filter(
+    (token) => token !== req.body.token
+  )
+  res.clearCookie('refreshToken')
+  res.status(200).json('Đăng xuất thành công!')
+}
+
+export const refresh = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const refreshToken = req.cookies.refreshToken
+  if (!refreshToken)
+    return res
+      .status(401)
+      .json('Bạn không có thẩm quyền làm điều này')
+  if (!refreshTokens.includes(refreshToken)) {
+    return res.status(403).json('Token đã hết hạn')
+  }
+  jwt.verify(
+    refreshToken,
+    process.env.JWT_REFRESH_KEY as string,
+    (err: VerifyErrors | null, user: any) => {
+      if (err) {
+        console.log(err)
+      }
+      refreshTokens = refreshTokens.filter(
+        (token) => token !== refreshToken
+      )
+      const newAccessToken = generateAccessToken(user)
+      const newRefreshToken = generateRefreshToken(user)
+      refreshTokens.push(newRefreshToken)
+      res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: false,
+        path: '/',
+        sameSite: 'strict'
+      })
+      res.status(200).json({
+        accessToken: newAccessToken,
+        refreshToken: newRefreshToken
+      })
+    }
+  )
 }

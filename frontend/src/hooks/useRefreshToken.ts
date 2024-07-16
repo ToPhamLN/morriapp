@@ -7,7 +7,7 @@ const useRefreshToken = (): (() => Promise<string>) => {
 
   const refresh = async (): Promise<string> => {
     try {
-      const res = await axios.get('/refresh', {
+      const res = await axios.get('api/v1/auths/refresh', {
         withCredentials: true
       })
       dispatch(updateProfile(res.data))

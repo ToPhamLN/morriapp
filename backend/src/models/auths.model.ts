@@ -1,17 +1,17 @@
 import { Schema, model } from 'mongoose'
-import { ERole } from '~/types'
+import { EProvider, ERole } from '~/types'
 
 const authSchema = new Schema<IAuth>(
   {
     email: {
       type: String,
-      required: true,
-      unique: true
+      required: false,
+      unique: false
     },
     password: {
       type: String,
-      required: true,
-      unique: true
+      required: false,
+      unique: false
     },
     role: {
       type: String,
@@ -20,6 +20,13 @@ const authSchema = new Schema<IAuth>(
     idRole: {
       type: Schema.Types.ObjectId,
       refPath: 'role'
+    },
+    idProvider: {
+      type: String
+    },
+    provider: {
+      type: String,
+      enum: Object.values(EProvider)
     }
   },
   { timestamps: true }
