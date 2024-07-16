@@ -116,7 +116,7 @@ declare global {
     sender: Types.ObjectId
     senderCategory: ERole
     path: string
-    picture: string
+    photo: string
     title?: string
     category?: string
     description?: string

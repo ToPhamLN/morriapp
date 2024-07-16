@@ -12,7 +12,7 @@ const reportSchema = new Schema<IReport>(
     path: {
       type: String
     },
-    picture: {
+    photo: {
       type: String
     },
     title: {

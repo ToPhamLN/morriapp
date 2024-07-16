@@ -31,8 +31,9 @@ const Row = ({ row, i }: Props) => {
   const apiFollower = `api/v1/followings/artists/${row?._id}`
   const { data: follower } = useSWR(
     apiFollower + i + 'artisttable',
-    () => fetcher(apiTrack)
+    () => fetcher(apiFollower)
   ) as { data: DPerson[] }
+  console.log(follower)
 
   const apiTrack = `api/v1/tracks/all`
   const { data: tracks } = useSWR(
