@@ -20,18 +20,91 @@ const App: React.FC = () => {
     (state) => state.profile
   )
 
+  async function initializeOneSignal() {
+    await OneSignal.init({
+      appId: 'bcd99d6f-0d71-4fca-b3a3-400df3af1761',
+      allowLocalhostAsSecureOrigin: true
+    })
+    OneSignal.Slidedown.promptPush()
+    OneSignal.
+  }
+
+  useEffect(() => {
+    initializeOneSignal()
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/OneSignalSDKWorker.js')
+        .then(function (registration) {
+          console.log(
+            'Service Worker registered with scope:',
+            registration.scope
+          )
+        })
+        .catch(function (error) {
+          console.log(
+            'Service Worker registration failed:',
+            error
+          )
+        })
+    }
+    if (Notification.permission === 'granted') {
+      console.log('Notification permission granted.')
+    } else if (Notification.permission === 'denied') {
+      console.log('Notification permission denied.')
+    } else {
+      Notification.requestPermission().then(
+        (permission) => {
+          if (permission === 'granted') {
+            console.log('Notification permission granted.')
+          } else {
+            console.log('Notification permission denied.')
+          }
+        }
+      )
+    }
+  })
+
   // useEffect(() => {
-  //   const initOneSignal = async () => {
-  //     await OneSignal.init({
-  //       appId
-  //     })
+  //   // Hàm khởi tạo OneSignal
+
+  //   // Kiểm tra và yêu cầu quyền thông báo
+  //   const requestNotificationPermission = async () => {
+  //     if (Notification.permission === 'granted') {
+  //       console.log('Notification permission granted.')
+  //       initializeOneSignal()
+  //     } else if (Notification.permission === 'denied') {
+  //       console.log('Notification permission denied.')
+  //     } else {
+  //       const permission =
+  //         await Notification.requestPermission()
+  //       if (permission === 'granted') {
+  //         console.log('Notification permission granted.')
+  //         initializeOneSignal()
+  //       } else {
+  //         console.log('Notification permission denied.')
+  //       }
+  //     }
   //   }
 
-  //   initOneSignal()
+  //   // Đăng ký Service Worker
+  //   if ('serviceWorker' in navigator) {
+  //     navigator.serviceWorker
+  //       .register('/OneSignalSDKWorker.js')
+  //       .then(function (registration) {
+  //         console.log(
+  //           'Service Worker registered with scope:',
+  //           registration.scope
+  //         )
+  //         requestNotificationPermission() // Yêu cầu quyền thông báo sau khi đăng ký Service Worker
+  //       })
+  //       .catch(function (error) {
+  //         console.log(
+  //           'Service Worker registration failed:',
+  //           error
+  //         )
+  //       })
+  //   }
   // }, [])
-  useEffect(() => {
-    runOneSignal()
-  })
 
   return (
     <Routes>
@@ -134,14 +207,3 @@ const App: React.FC = () => {
 }
 
 export default App
-
-async function runOneSignal() {
-  const appId = 'd162ac35-267a-4aa9-8c56-b4b432a7d591'
-  console.log(appId)
-
-  await OneSignal.init({
-    appId,
-    allowLocalhostAsSecureOrigin: true
-  })
-  OneSignal.Slidedown.promptPush()
-}
