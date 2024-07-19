@@ -7,10 +7,7 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useAppDispatch, useAxiosPublic } from '~/hooks'
-import {
-  setProfile,
-  updateProfile
-} from '~/reduxStore/profileSlice'
+import { updateProfile } from '~/reduxStore/profileSlice'
 import {
   useLocation,
   useNavigate,
@@ -21,6 +18,7 @@ import { InputBox } from '~/components/common'
 import { LoadingIcon } from '~/components/pure'
 import { setNotify } from '~/reduxStore/globalSlice'
 import Passport from './Passport'
+import OneSignal from 'react-onesignal'
 
 interface FormLogin {
   email: string
@@ -61,6 +59,12 @@ const LoginPage: React.FC = () => {
       console.log(state)
 
       if (role && idRole) {
+        await OneSignal.login(idRole?._id)
+        OneSignal.User.addTags({
+          role: role,
+          idRole: idRole?._id
+        })
+        console.log(idRole?._id, 'đã đăng nhập')
         dispatch(updateProfile(res.data.auth))
         if (state?.history) {
           navigate(state?.history)

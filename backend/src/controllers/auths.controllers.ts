@@ -8,10 +8,12 @@ import {
 import bcrypt from 'bcrypt'
 import { ERole } from '~/types'
 import { v2 as cloudinary } from 'cloudinary'
-import { sendNotification } from '~/config/pushNotification'
+import {
+  getApps,
+  sendNotification
+} from '~/config/pushNotification'
 import jwt, { VerifyErrors } from 'jsonwebtoken'
 import passport from 'passport'
-import { Document } from 'mongoose'
 
 const CLIENT_URL = process.env.CLIENT_URL as string
 let refreshTokens: string[] = []
@@ -208,9 +210,11 @@ export const postLogin = async (
       message: 'Chào mừng bạn đến với Morri',
       title: 'Đăng nhập thành công'
     })
+    const app = await getApps()
     res.status(200).json({
       auth: { ...others, accessToken },
-      message: 'Đăng nhập thành công'
+      message: 'Đăng nhập thành công',
+      app: app
     })
   } catch (error) {
     next(error)

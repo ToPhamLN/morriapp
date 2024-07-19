@@ -23,6 +23,7 @@ import {
 import { DNotifiction } from '~/types/data'
 import { setThemeMode } from '~/reduxStore/settingsSlice'
 import { setProfile } from '~/reduxStore/profileSlice'
+import OneSignal from 'react-onesignal'
 
 interface Props {
   notifications: DNotifiction[]
@@ -55,6 +56,7 @@ const Auth = ({ notifications }: Props) => {
 
   const handleLogOut = async () => {
     try {
+      await OneSignal.logout()
       const res = await axios.post('api/v1/auths/logout', {
         token: accessToken
       })

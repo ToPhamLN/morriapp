@@ -1,7 +1,7 @@
-import * as OneSignal from '@onesignal/node-onesignal'
-import { ConfigurationParameters } from 'node_modules/@onesignal/node-onesignal/dist/configuration'
-import { Request, Response, NextFunction } from 'express'
-// new version buit it errors
+// import * as OneSignal from '@onesignal/node-onesignal'
+// import { ConfigurationParameters } from 'node_modules/@onesignal/node-onesignal/dist/configuration'
+// import { Request, Response, NextFunction } from 'express'
+
 // const configParams: ConfigurationParameters = {
 //   restApiKey: process.env.REST_API_KEY,
 //   userAuthKey: process.env.USER_AUTH_KEY
@@ -61,31 +61,25 @@ import { Request, Response, NextFunction } from 'express'
 //   }
 // }
 
-const configParams: ConfigurationParameters = {
-  appKey: process.env.REST_API_KEY,
-  userKey: process.env.USER_AUTH_KEY
-}
+import axios from 'axios'
+import dotenv from 'dotenv'
+dotenv.config()
+const BASE_URL = 'https://api.onesignal.com'
+const restApiKey = process.env.REST_API_KEY
+const userAuthKey = process.env.USER_AUTH_KEY
+const appId = process.env.APP_ID
 
-const authMethods = {
-  app_key: process.env.REST_API_KEY,
-  user_key: process.env.USER_AUTH_KEY
-} as OneSignal.AuthMethods
-
-const configuration = OneSignal.createConfiguration(configParams)
-const client = new OneSignal.DefaultApi(configuration)
-
-export const getAppInfo = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const getApps = async () => {
   try {
-    const app = await client.getApp(process.env.APP_ID as string)
-    req.appInfo = app
-    next()
+    const res = await axios.get(`${BASE_URL}/apps`, {
+      headers: {
+        accept: 'text/plain',
+        Authorization: `Basic ${userAuthKey}`
+      }
+    })
+    return res.data
   } catch (error) {
-    console.error(error)
-    next(error)
+    errorFetch(error)
   }
 }
 
@@ -94,25 +88,27 @@ interface Notify {
   title: string
 }
 
-export const sendNotification = async (data: Notify) => {
+export const sendNotification = async (notify: Notify) => {
   try {
-    const app = await client.getApp(
-      process.env.APP_ID as string
-      // { authMethods } as OneSignal.Configuration
-    )
-    return console.log(app)
-    const notification = new OneSignal.Notification()
-
-    notification.app_id = process.env.APP_ID as string
-    notification.name = 'test_notification_name'
-    notification.contents = { en: "Gig'em Ags" }
-    notification.headings = { en: "Gig'em Ags" }
-    notification.included_segments = ['All']
-
-    const notificationResponse =
-      await client.createNotification(notification)
-    return notificationResponse
+    console.log('send')
   } catch (error) {
     console.log(error)
+  }
+}
+
+const errorFetch = (error: any) => {
+  if (error.isAxiosError) {
+    console.error('Axios error:', error.message)
+    if (error.response) {
+      console.error('Response data:', error.response.data)
+      console.error('Response status:', error.response.status)
+      console.error('Response headers:', error.response.headers)
+    } else if (error.request) {
+      console.error('Request data:', error.request)
+    } else {
+      console.error('Error message:', error.message)
+    }
+  } else {
+    console.error('Non-Axios error:', error)
   }
 }

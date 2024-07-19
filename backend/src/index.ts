@@ -23,7 +23,7 @@ import {
   notFound,
   errorHandler
 } from '~/middlewares/error.middlewares'
-import './config/passport'
+// import './config/passport'
 
 dotenv.config()
 const app: express.Application = express()
