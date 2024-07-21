@@ -8,10 +8,7 @@ import {
 import bcrypt from 'bcrypt'
 import { ERole } from '~/types'
 import { v2 as cloudinary } from 'cloudinary'
-import {
-  getApps,
-  sendNotification
-} from '~/config/pushNotification'
+import { sendNotification } from '~/config/pushNotification'
 import jwt, { VerifyErrors } from 'jsonwebtoken'
 import passport from 'passport'
 
@@ -208,13 +205,12 @@ export const postLogin = async (
     })
     sendNotification({
       message: 'Chào mừng bạn đến với Morri',
-      title: 'Đăng nhập thành công'
+      title: 'Đăng nhập thành công',
+      externalUserIds: ['6603f08a3f6a4ceff6482e68']
     })
-    const app = await getApps()
     res.status(200).json({
       auth: { ...others, accessToken },
-      message: 'Đăng nhập thành công',
-      app: app
+      message: 'Đăng nhập thành công'
     })
   } catch (error) {
     next(error)

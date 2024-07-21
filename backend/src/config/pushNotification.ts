@@ -1,66 +1,3 @@
-// import * as OneSignal from '@onesignal/node-onesignal'
-// import { ConfigurationParameters } from 'node_modules/@onesignal/node-onesignal/dist/configuration'
-// import { Request, Response, NextFunction } from 'express'
-
-// const configParams: ConfigurationParameters = {
-//   restApiKey: process.env.REST_API_KEY,
-//   userAuthKey: process.env.USER_AUTH_KEY
-// }
-
-// const authMethods = {
-//   rest_api_key: process.env.REST_API_KEY,
-//   user_auth_key: process.env.USER_AUTH_KEY
-// } as OneSignal.AuthMethods
-
-// const configuration = OneSignal.createConfiguration(configParams)
-// const client = new OneSignal.DefaultApi(configuration)
-
-// export const getAppInfo = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   try {
-//     const app = await client.getApp(
-//       process.env.APP_ID as string,
-//       { authMethods } as OneSignal.Configuration
-//     )
-//     req.appInfo = app
-//     next()
-//   } catch (error) {
-//     console.error(error)
-//     next(error)
-//   }
-// }
-
-// interface Notify {
-//   message: string
-//   title: string
-// }
-
-// export const sendNotification = async (data: Notify) => {
-//   try {
-//     const app = await client.getApp(
-//       process.env.APP_ID as string,
-//       { authMethods } as OneSignal.Configuration
-//     )
-//     return console.log(app)
-//     const notification = new OneSignal.Notification()
-
-//     notification.app_id = process.env.APP_ID as string
-//     notification.name = 'test_notification_name'
-//     notification.contents = { en: "Gig'em Ags" }
-//     notification.headings = { en: "Gig'em Ags" }
-//     notification.included_segments = ['All']
-
-//     const notificationResponse =
-//       await client.createNotification(notification)
-//     return notificationResponse
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
-
 import axios from 'axios'
 import dotenv from 'dotenv'
 dotenv.config()
@@ -84,15 +21,79 @@ export const getApps = async () => {
 }
 
 interface Notify {
-  message: string
+  externalUserIds?: string[]
   title: string
+  message: string
+  url?: string
+  alias?: string
+  aliases?: string[]
+  email?: string
+  sms?: string
+  tag?: { key: string; value: string }
+  tags?: { [key: string]: string }
+  image?: string
 }
 
 export const sendNotification = async (notify: Notify) => {
   try {
-    console.log('send')
+    const form: any = {
+      app_id: appId,
+      headings: { en: notify.title },
+      contents: { en: notify.message }
+    }
+
+    if (
+      notify.externalUserIds &&
+      notify.externalUserIds.length > 0
+    ) {
+      form.include_external_user_ids = notify.externalUserIds
+    } else {
+      form.included_segments = ['All']
+    }
+
+    if (notify.url) form.url = notify.url
+    if (notify.alias) form.alias = notify.alias
+    if (notify.aliases) form.aliases = notify.aliases
+    if (notify.email) form.email = notify.email
+    if (notify.sms) form.sms = notify.sms
+    if (notify.image) form.large_icon = notify.image
+
+    if (notify.tag) {
+      form.filters = form.filters || []
+      form.filters.push({
+        field: 'tag',
+        key: notify.tag.key,
+        relation: '=',
+        value: notify.tag.value
+      })
+    }
+
+    if (notify.tags) {
+      form.filters = form.filters || []
+      Object.keys(notify.tags).forEach((key) => {
+        form.filters.push({
+          field: 'tag',
+          key: key,
+          relation: '=',
+          value: notify.tags![key]
+        })
+      })
+    }
+
+    const res = await axios.post(
+      `${BASE_URL}/notifications`,
+      form,
+      {
+        headers: {
+          accept: 'application/json',
+          Authorization: `Basic ${restApiKey}`
+        }
+      }
+    )
+
+    return res.data
   } catch (error) {
-    console.log(error)
+    errorFetch(error)
   }
 }
 
